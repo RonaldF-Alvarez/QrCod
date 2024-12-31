@@ -41,12 +41,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
-      errorBuilder: (context, state) => AllTicketConexaoWidget(),
+      errorBuilder: (context, state) => AllTicketConnectionWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => AllTicketConexaoWidget(),
+          builder: (context, _) => AllTicketConnectionWidget(),
         ),
         FFRoute(
           name: 'TelaCadastro',
@@ -71,11 +71,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.bool,
             ),
           ),
-        ),
-        FFRoute(
-          name: 'AllTicketConexao',
-          path: '/allTicketConexao',
-          builder: (context, params) => AllTicketConexaoWidget(),
         ),
         FFRoute(
           name: 'AllTicketValidacao',

@@ -132,8 +132,8 @@ class _LeituraIngressoWidgetState extends State<LeituraIngressoWidget> {
                             color: FlutterFlowTheme.of(context).info,
                             size: 24.0,
                           ),
-                          onPressed: () async {
-                            context.pushNamed('AllTicketConexao');
+                          onPressed: () {
+                            print('IconButton pressed ...');
                           },
                         ),
                       ),

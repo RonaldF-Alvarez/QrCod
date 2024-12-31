@@ -1,4 +1,4 @@
-import '/comps/testea/testea_widget.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_radio_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -35,13 +35,11 @@ class AllTicketConnectionModel
   FocusNode? textbatataFocusNode;
   TextEditingController? textbatataTextController;
   String? Function(BuildContext, String?)? textbatataTextControllerValidator;
-  // Model for testea component.
-  late TesteaModel testeaModel;
+  // Stores action output result for [Backend Call - API (PostGerarToken)] action in Buttondeconectar widget.
+  ApiCallResponse? apiAllVipResult;
 
   @override
-  void initState(BuildContext context) {
-    testeaModel = createModel(context, () => TesteaModel());
-  }
+  void initState(BuildContext context) {}
 
   @override
   void dispose() {
@@ -53,8 +51,6 @@ class AllTicketConnectionModel
 
     textbatataFocusNode?.dispose();
     textbatataTextController?.dispose();
-
-    testeaModel.dispose();
   }
 
   /// Additional helper methods.

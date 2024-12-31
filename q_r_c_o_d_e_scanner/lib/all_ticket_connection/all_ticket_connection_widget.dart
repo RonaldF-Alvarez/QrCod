@@ -1,4 +1,4 @@
-import '/comps/testea/testea_widget.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_radio_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -78,7 +78,7 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(40.0, 0.0, 40.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(40.0, 40.0, 40.0, 0.0),
                 child: Container(
                   width: double.infinity,
                   child: TextFormField(
@@ -328,13 +328,61 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                       .asValidator(context),
                 ),
               ),
-              wrapWithModel(
-                model: _model.testeaModel,
-                updateCallback: () => safeSetState(() {}),
-                child: TesteaWidget(
-                  act: () async {
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
+                child: FFButtonWidget(
+                  onPressed: () async {
+                    _model.apiAllVipResult =
+                        await APIAllVipGroup.postGerarTokenCall.call(
+                      api: _model.textFieldDigitarSerialTextController.text,
+                    );
+
+                    if ((_model.apiAllVipResult?.jsonBody ?? '')) {
+                      context.pushNamed('AllTicketValidacao');
+                    } else {
+                      await showDialog(
+                        context: context,
+                        builder: (alertDialogContext) {
+                          return AlertDialog(
+                            title: Text('Erro'),
+                            content: Text(
+                                '${_model.textFieldDigitarSerialTextController.text}não encontrado'),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(alertDialogContext),
+                                child: Text('Ok'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
+
                     safeSetState(() {});
                   },
+                  text: 'Conectar ao Servidor',
+                  options: FFButtonOptions(
+                    width: 272.0,
+                    height: 54.0,
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    iconPadding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: Color(0xFFDF7D1D),
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Inter',
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.normal,
+                        ),
+                    elevation: 2.0,
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).alternate,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                 ),
               ),
             ],
