@@ -326,9 +326,11 @@ class _AllTicketConexaoWidgetState extends State<AllTicketConexaoWidget> {
                               0.0, 0.0, 0.0, 30.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              _model.apiAllVipResult = await APIAllVipGroup
-                                  .postGerarTokenCall
-                                  .call();
+                              _model.apiAllVipResult =
+                                  await APIAllVipGroup.postGerarTokenCall.call(
+                                api: _model
+                                    .textFieldDigitarSerialTextController.text,
+                              );
 
                               if ((_model.apiAllVipResult?.jsonBody ?? '')) {
                                 context.pushNamed('AllTicketValidacao');

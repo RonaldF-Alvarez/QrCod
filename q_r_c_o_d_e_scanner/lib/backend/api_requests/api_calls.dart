@@ -14,15 +14,22 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 /// Start APIAllVip Group Code
 
 class APIAllVipGroup {
-  static String getBaseUrl() => 'http://localhost:5000';
+  static String getBaseUrl({
+    String? api = '',
+  }) =>
+      'http://${api}';
   static Map<String, String> headers = {};
   static PostGerarTokenCall postGerarTokenCall = PostGerarTokenCall();
   static GetEntradasCall getEntradasCall = GetEntradasCall();
 }
 
 class PostGerarTokenCall {
-  Future<ApiCallResponse> call() async {
-    final baseUrl = APIAllVipGroup.getBaseUrl();
+  Future<ApiCallResponse> call({
+    String? api = '',
+  }) async {
+    final baseUrl = APIAllVipGroup.getBaseUrl(
+      api: api,
+    );
 
     final ffApiRequestBody = '''
 {
@@ -47,8 +54,12 @@ class PostGerarTokenCall {
 }
 
 class GetEntradasCall {
-  Future<ApiCallResponse> call() async {
-    final baseUrl = APIAllVipGroup.getBaseUrl();
+  Future<ApiCallResponse> call({
+    String? api = '',
+  }) async {
+    final baseUrl = APIAllVipGroup.getBaseUrl(
+      api: api,
+    );
 
     return ApiManager.instance.makeApiCall(
       callName: 'GetEntradas',
