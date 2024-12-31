@@ -5,8 +5,6 @@ import 'package:from_css_color/from_css_color.dart';
 
 import '/backend/schema/structs/index.dart';
 
-import '/backend/supabase/supabase.dart';
-
 import '../../flutter_flow/lat_lng.dart';
 import '../../flutter_flow/place.dart';
 import '../../flutter_flow/uploaded_file.dart';
@@ -76,9 +74,6 @@ String? serializeParam(
 
       case ParamType.DataStruct:
         data = param is BaseStruct ? param.serialize() : null;
-
-      case ParamType.SupabaseRow:
-        return json.encode((param as SupabaseDataRow).data);
 
       default:
         data = null;
@@ -157,7 +152,6 @@ enum ParamType {
   JSON,
 
   DataStruct,
-  SupabaseRow,
 }
 
 dynamic deserializeParam<T>(
@@ -214,23 +208,6 @@ dynamic deserializeParam<T>(
         return uploadedFileFromString(param);
       case ParamType.JSON:
         return json.decode(param);
-
-      case ParamType.SupabaseRow:
-        final data = json.decode(param) as Map<String, dynamic>;
-        switch (T) {
-          case IngressoRow:
-            return IngressoRow(data);
-          case UsuariosRow:
-            return UsuariosRow(data);
-          case EventoTicketRow:
-            return EventoTicketRow(data);
-          case EventoUsuarioRow:
-            return EventoUsuarioRow(data);
-          case EventosRow:
-            return EventosRow(data);
-          default:
-            return null;
-        }
 
       case ParamType.DataStruct:
         final data = json.decode(param) as Map<String, dynamic>? ?? {};

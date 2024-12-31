@@ -2,21 +2,25 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
-import 'all_ticket_validacao_widget.dart' show AllTicketValidacaoWidget;
+import 'teste_widget.dart' show TesteWidget;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class AllTicketValidacaoModel
-    extends FlutterFlowModel<AllTicketValidacaoWidget> {
+class TesteModel extends FlutterFlowModel<TesteWidget> {
   ///  State fields for stateful widgets in this page.
 
-  // State field(s) for Checkbox widget.
-  bool? checkboxValue;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
+  TextEditingController? textController;
+  String? Function(BuildContext, String?)? textControllerValidator;
 
   @override
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {}
+  void dispose() {
+    textFieldFocusNode?.dispose();
+    textController?.dispose();
+  }
 }

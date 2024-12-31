@@ -7,8 +7,6 @@ import 'package:provider/provider.dart';
 
 import '/backend/schema/structs/index.dart';
 
-import '/backend/supabase/supabase.dart';
-
 import '/index.dart';
 import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -43,12 +41,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
-      errorBuilder: (context, state) => AllTicketConexaoWidget(),
+      errorBuilder: (context, state) => AllTicketConnectionWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => AllTicketConexaoWidget(),
+          builder: (context, _) => AllTicketConnectionWidget(),
         ),
         FFRoute(
           name: 'TelaCadastro',
@@ -83,6 +81,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'AllTicketValidacao',
           path: '/allTicketValidacao',
           builder: (context, params) => AllTicketValidacaoWidget(),
+        ),
+        FFRoute(
+          name: 'AllTicketConnection',
+          path: '/allTicketConnection',
+          builder: (context, params) => AllTicketConnectionWidget(),
+        ),
+        FFRoute(
+          name: 'teste',
+          path: '/teste',
+          builder: (context, params) => TesteWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

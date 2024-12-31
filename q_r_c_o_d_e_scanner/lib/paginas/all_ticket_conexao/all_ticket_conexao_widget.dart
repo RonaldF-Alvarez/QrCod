@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_radio_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -27,11 +28,11 @@ class _AllTicketConexaoWidgetState extends State<AllTicketConexaoWidget> {
     super.initState();
     _model = createModel(context, () => AllTicketConexaoModel());
 
-    _model.textController1 ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
+    _model.textFieldDigitarSerialTextController ??= TextEditingController();
+    _model.textFieldDigitarSerialFocusNode ??= FocusNode();
 
     _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
+    _model.textFieldFocusNode ??= FocusNode();
   }
 
   @override
@@ -83,8 +84,8 @@ class _AllTicketConexaoWidgetState extends State<AllTicketConexaoWidget> {
                 child: Container(
                   width: double.infinity,
                   child: TextFormField(
-                    controller: _model.textController1,
-                    focusNode: _model.textFieldFocusNode1,
+                    controller: _model.textFieldDigitarSerialTextController,
+                    focusNode: _model.textFieldDigitarSerialFocusNode,
                     autofocus: false,
                     obscureText: false,
                     decoration: InputDecoration(
@@ -138,8 +139,9 @@ class _AllTicketConexaoWidgetState extends State<AllTicketConexaoWidget> {
                           letterSpacing: 0.0,
                         ),
                     cursorColor: FlutterFlowTheme.of(context).primaryText,
-                    validator:
-                        _model.textController1Validator.asValidator(context),
+                    validator: _model
+                        .textFieldDigitarSerialTextControllerValidator
+                        .asValidator(context),
                   ),
                 ),
               ),
@@ -255,7 +257,7 @@ class _AllTicketConexaoWidgetState extends State<AllTicketConexaoWidget> {
                             width: 280.0,
                             child: TextFormField(
                               controller: _model.textController2,
-                              focusNode: _model.textFieldFocusNode2,
+                              focusNode: _model.textFieldFocusNode,
                               autofocus: false,
                               obscureText: false,
                               decoration: InputDecoration(
@@ -324,7 +326,15 @@ class _AllTicketConexaoWidgetState extends State<AllTicketConexaoWidget> {
                               0.0, 0.0, 0.0, 30.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              context.pushNamed('AllTicketValidacao');
+                              _model.apiAllVipResult = await APIAllVipGroup
+                                  .postGerarTokenCall
+                                  .call();
+
+                              if ((_model.apiAllVipResult?.jsonBody ?? '')) {
+                                context.pushNamed('AllTicketValidacao');
+                              }
+
+                              safeSetState(() {});
                             },
                             text: 'Conectar ao Servidor',
                             options: FFButtonOptions(
