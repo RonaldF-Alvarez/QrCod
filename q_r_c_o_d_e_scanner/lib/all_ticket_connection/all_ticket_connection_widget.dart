@@ -301,7 +301,8 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                         );
 
                         _shouldSetState = true;
-                        if ((_model.apiAllVipResult?.jsonBody ?? '')) {
+                        if ((_model.apiAllVipResult?.statusCode ?? 200) ==
+                            200) {
                           FFAppState().ipadress =
                               _model.textFieldDigitarSerialTextController.text;
                           safeSetState(() {});
