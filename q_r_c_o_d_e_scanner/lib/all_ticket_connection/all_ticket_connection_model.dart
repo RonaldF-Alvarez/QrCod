@@ -31,12 +31,10 @@ class AllTicketConnectionModel
   FocusNode? textFieldFocusNode;
   TextEditingController? textController2;
   String? Function(BuildContext, String?)? textController2Validator;
-  // State field(s) for Textbatata widget.
-  FocusNode? textbatataFocusNode;
-  TextEditingController? textbatataTextController;
-  String? Function(BuildContext, String?)? textbatataTextControllerValidator;
   // Stores action output result for [Backend Call - API (PostGerarToken)] action in Buttondeconectar widget.
   ApiCallResponse? apiAllVipResult;
+  // Stores action output result for [Backend Call - API (GetEntradas)] action in Buttondeconectar widget.
+  ApiCallResponse? getEntradaResult;
 
   @override
   void initState(BuildContext context) {}
@@ -48,9 +46,6 @@ class AllTicketConnectionModel
 
     textFieldFocusNode?.dispose();
     textController2?.dispose();
-
-    textbatataFocusNode?.dispose();
-    textbatataTextController?.dispose();
   }
 
   /// Additional helper methods.

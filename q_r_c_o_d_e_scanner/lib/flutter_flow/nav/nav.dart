@@ -59,9 +59,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => TeladeLoginWidget(),
         ),
         FFRoute(
-          name: 'LeituraIngresso',
-          path: '/leituraIngresso',
-          builder: (context, params) => LeituraIngressoWidget(
+          name: 'AllTicketValidacao',
+          path: '/allTicketValidacao',
+          builder: (context, params) => AllTicketValidacaoWidget(
             eventotipo: params.getParam(
               'eventotipo',
               ParamType.String,
@@ -73,19 +73,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'AllTicketValidacao',
-          path: '/allTicketValidacao',
-          builder: (context, params) => AllTicketValidacaoWidget(),
+          name: 'AllTicketEntradas',
+          path: '/allTicketEntradas',
+          builder: (context, params) => AllTicketEntradasWidget(),
         ),
         FFRoute(
           name: 'AllTicketConnection',
           path: '/allTicketConnection',
           builder: (context, params) => AllTicketConnectionWidget(),
-        ),
-        FFRoute(
-          name: 'teste',
-          path: '/teste',
-          builder: (context, params) => TesteWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

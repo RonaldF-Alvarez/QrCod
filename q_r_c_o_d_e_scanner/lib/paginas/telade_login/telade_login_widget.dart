@@ -481,7 +481,7 @@ class _TeladeLoginWidgetState extends State<TeladeLoginWidget>
                                         child: FFButtonWidget(
                                           onPressed: () async {
                                             context.pushNamed(
-                                              'LeituraIngresso',
+                                              'AllTicketValidacao',
                                               queryParameters: {
                                                 'eventotipo': serializeParam(
                                                   '',
