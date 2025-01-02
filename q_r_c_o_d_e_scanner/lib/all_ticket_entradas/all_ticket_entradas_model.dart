@@ -1,3 +1,5 @@
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -11,7 +13,9 @@ class AllTicketEntradasModel extends FlutterFlowModel<AllTicketEntradasWidget> {
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for Checkbox widget.
-  bool? checkboxValue;
+  Map<EntradasStruct, bool> checkboxValueMap = {};
+  List<EntradasStruct> get checkboxCheckedItems =>
+      checkboxValueMap.entries.where((e) => e.value).map((e) => e.key).toList();
 
   @override
   void initState(BuildContext context) {}

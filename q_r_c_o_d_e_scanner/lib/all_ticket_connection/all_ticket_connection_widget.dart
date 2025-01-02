@@ -302,11 +302,14 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
 
                         _shouldSetState = true;
                         if ((_model.apiAllVipResult?.jsonBody ?? '')) {
+                          FFAppState().ipadress =
+                              _model.textFieldDigitarSerialTextController.text;
+                          safeSetState(() {});
                           _model.getEntradaResult =
                               await APIAllVipGroup.getEntradasCall.call();
 
                           _shouldSetState = true;
-                          if ((_model.getEntradaResult?.jsonBody ?? '')) {
+                          if ((_model.getEntradaResult?.succeeded ?? true)) {
                             context.pushNamed('AllTicketEntradas');
                           } else {
                             await showDialog(

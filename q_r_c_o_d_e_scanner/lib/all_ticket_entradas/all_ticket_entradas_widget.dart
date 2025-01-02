@@ -1,3 +1,5 @@
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -36,6 +38,8 @@ class _AllTicketEntradasWidgetState extends State<AllTicketEntradasWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -76,65 +80,113 @@ class _AllTicketEntradasWidgetState extends State<AllTicketEntradasWidget> {
                       ),
                 ),
               ),
-              ListView(
-                padding: EdgeInsets.symmetric(vertical: 8.0),
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                children: [
-                  Container(
-                    width: 100.0,
-                    height: 50.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Theme(
-                            data: ThemeData(
-                              checkboxTheme: CheckboxThemeData(
-                                visualDensity: VisualDensity.compact,
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                              ),
-                              unselectedWidgetColor:
-                                  FlutterFlowTheme.of(context).alternate,
-                            ),
-                            child: Checkbox(
-                              value: _model.checkboxValue ??= false,
-                              onChanged: (newValue) async {
-                                safeSetState(
-                                    () => _model.checkboxValue = newValue!);
-                              },
-                              side: BorderSide(
-                                width: 2,
-                                color: FlutterFlowTheme.of(context).alternate,
-                              ),
-                              activeColor: FlutterFlowTheme.of(context).primary,
-                              checkColor: FlutterFlowTheme.of(context).info,
-                            ),
+              FutureBuilder<ApiCallResponse>(
+                future: APIAllVipGroup.getEntradasCall.call(
+                  api: FFAppState().ipadress,
+                ),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50.0,
+                        height: 50.0,
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            FlutterFlowTheme.of(context).primary,
                           ),
-                          Text(
-                            '',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
-                                ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                ].divide(SizedBox(height: 8.0)),
+                    );
+                  }
+                  final listViewGetEntradasResponse = snapshot.data!;
+
+                  return Builder(
+                    builder: (context) {
+                      final entrada = (listViewGetEntradasResponse.jsonBody
+                                  .toList()
+                                  .map<EntradasStruct?>(
+                                      EntradasStruct.maybeFromMap)
+                                  .toList() as Iterable<EntradasStruct?>)
+                              .withoutNulls
+                              ?.toList() ??
+                          [];
+
+                      return ListView.separated(
+                        padding: EdgeInsets.symmetric(vertical: 8.0),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: entrada.length,
+                        separatorBuilder: (_, __) => SizedBox(height: 8.0),
+                        itemBuilder: (context, entradaIndex) {
+                          final entradaItem = entrada[entradaIndex];
+                          return Container(
+                            width: 100.0,
+                            height: 50.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                            ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 0.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Theme(
+                                    data: ThemeData(
+                                      checkboxTheme: CheckboxThemeData(
+                                        visualDensity: VisualDensity.compact,
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                      ),
+                                      unselectedWidgetColor:
+                                          FlutterFlowTheme.of(context)
+                                              .alternate,
+                                    ),
+                                    child: Checkbox(
+                                      value: _model
+                                              .checkboxValueMap[entradaItem] ??=
+                                          false,
+                                      onChanged: (newValue) async {
+                                        safeSetState(() => _model
+                                                .checkboxValueMap[entradaItem] =
+                                            newValue!);
+                                      },
+                                      side: BorderSide(
+                                        width: 2,
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                      ),
+                                      activeColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      checkColor:
+                                          FlutterFlowTheme.of(context).info,
+                                    ),
+                                  ),
+                                  Text(
+                                    entradaItem.descricao,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
               ),
               Expanded(
                 child: Align(
