@@ -45,6 +45,8 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -307,7 +309,9 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                               _model.textFieldDigitarSerialTextController.text;
                           safeSetState(() {});
                           _model.getEntradaResult =
-                              await APIAllVipGroup.getEntradasCall.call();
+                              await APIAllVipGroup.getEntradasCall.call(
+                            api: FFAppState().ipadress,
+                          );
 
                           _shouldSetState = true;
                           if ((_model.getEntradaResult?.succeeded ?? true)) {
