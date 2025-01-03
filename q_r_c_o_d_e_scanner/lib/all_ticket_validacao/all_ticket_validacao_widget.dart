@@ -505,7 +505,7 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                                   'Ingresso validado com sucesso';
                             });
                             safeSetState(() {
-                              _model.textController2?.text = _model.codigo;
+                              _model.textFieldATextController?.clear();
                             });
                             if (_shouldSetState) safeSetState(() {});
                             return;
