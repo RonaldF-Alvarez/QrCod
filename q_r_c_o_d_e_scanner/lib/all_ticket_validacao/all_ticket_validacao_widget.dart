@@ -502,6 +502,8 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                             });
                           }
                         } else {
+                          _model.ingressovalidado = false;
+                          safeSetState(() {});
                           safeSetState(() {
                             _model.textController2?.text =
                                 'Ingresso não encontrado';
