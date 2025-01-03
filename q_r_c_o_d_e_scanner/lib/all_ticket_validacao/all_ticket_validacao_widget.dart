@@ -412,7 +412,9 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 filled: true,
-                                fillColor: Color(0xFFFFF104),
+                                fillColor: _model.ingressovalidado
+                                    ? Color(0xFF28E946)
+                                    : Color(0xFFE9EC4B),
                               ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -505,7 +507,14 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                                 );
                               },
                             );
+                            _model.ingressovalidado = true;
+                            safeSetState(() {});
                           }
+                        } else {
+                          safeSetState(() {
+                            _model.textController2?.text =
+                                'Ingrsso não encontrado';
+                          });
                         }
 
                         safeSetState(() {});

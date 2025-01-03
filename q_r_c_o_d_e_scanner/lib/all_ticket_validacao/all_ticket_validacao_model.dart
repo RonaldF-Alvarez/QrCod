@@ -23,6 +23,8 @@ class AllTicketValidacaoModel
 
   String codigo = '';
 
+  bool ingressovalidado = false;
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for Switch widget.
