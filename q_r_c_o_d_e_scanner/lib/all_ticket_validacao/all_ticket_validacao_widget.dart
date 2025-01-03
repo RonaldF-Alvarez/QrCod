@@ -458,6 +458,7 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
                     child: FFButtonWidget(
                       onPressed: () async {
+                        var _shouldSetState = false;
                         if (_model.digitar) {
                           _model.codigo = _model.textFieldATextController.text;
                           safeSetState(() {});
@@ -470,6 +471,7 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                             ScanMode.QR,
                           );
 
+                          _shouldSetState = true;
                           _model.codigo = _model.scanOut!;
                           safeSetState(() {});
                         }
@@ -480,6 +482,7 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                           codIngresso: _model.codigo,
                         );
 
+                        _shouldSetState = true;
                         if ((_model.apiResultv1h?.succeeded ?? true)) {
                           _model.apiResulto3c = await APIAllVipGroup
                               .putAtualizaIngressoValidoCall
@@ -493,6 +496,7 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                                 getCurrentTimestamp.toString(),
                           );
 
+                          _shouldSetState = true;
                           if ((_model.apiResulto3c?.succeeded ?? true)) {
                             _model.ingressovalidado = true;
                             safeSetState(() {});
@@ -500,6 +504,14 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                               _model.textController2?.text =
                                   'Ingresso validado com sucesso';
                             });
+                            safeSetState(() {
+                              _model.textController2?.text = _model.codigo;
+                            });
+                            if (_shouldSetState) safeSetState(() {});
+                            return;
+                          } else {
+                            if (_shouldSetState) safeSetState(() {});
+                            return;
                           }
                         } else {
                           _model.ingressovalidado = false;
@@ -508,9 +520,11 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                             _model.textController2?.text =
                                 'Ingresso não encontrado';
                           });
+                          if (_shouldSetState) safeSetState(() {});
+                          return;
                         }
 
-                        safeSetState(() {});
+                        if (_shouldSetState) safeSetState(() {});
                       },
                       text: 'Validar',
                       options: FFButtonOptions(
