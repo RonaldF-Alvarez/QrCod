@@ -157,6 +157,17 @@ class _AllTicketEntradasWidgetState extends State<AllTicketEntradasWidget> {
                                         safeSetState(() => _model
                                                 .checkboxValueMap[entradaItem] =
                                             newValue!);
+                                        if (newValue!) {
+                                          FFAppState()
+                                              .addToEntradasSelecionadas(
+                                                  entradaItem);
+                                          safeSetState(() {});
+                                        } else {
+                                          FFAppState()
+                                              .removeFromEntradasSelecionadas(
+                                                  entradaItem);
+                                          safeSetState(() {});
+                                        }
                                       },
                                       side: BorderSide(
                                         width: 2,
@@ -196,19 +207,7 @@ class _AllTicketEntradasWidgetState extends State<AllTicketEntradasWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        context.pushNamed(
-                          'AllTicketValidacao',
-                          queryParameters: {
-                            'eventotipo': serializeParam(
-                              '',
-                              ParamType.String,
-                            ),
-                            'conexao': serializeParam(
-                              false,
-                              ParamType.bool,
-                            ),
-                          }.withoutNulls,
-                        );
+                        context.pushNamed('AllTicketValidacao');
                       },
                       text: 'Definir entrada',
                       options: FFButtonOptions(

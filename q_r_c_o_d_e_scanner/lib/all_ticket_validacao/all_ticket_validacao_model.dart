@@ -1,8 +1,10 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import '/backend/schema/structs/index.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'all_ticket_validacao_widget.dart' show AllTicketValidacaoWidget;
 import 'package:auto_size_text/auto_size_text.dart';
@@ -19,7 +21,7 @@ class AllTicketValidacaoModel
 
   bool digitar = false;
 
-  String? testecod;
+  String codigo = '';
 
   ///  State fields for stateful widgets in this page.
 
@@ -38,6 +40,10 @@ class AllTicketValidacaoModel
   TextEditingController? textController2;
   String? Function(BuildContext, String?)? textController2Validator;
   var scanOut = '';
+  // Stores action output result for [Backend Call - API (GetIngrsso)] action in Button widget.
+  ApiCallResponse? apiResultv1h;
+  // Stores action output result for [Backend Call - API (PutAtualizaIngressoValido)] action in Button widget.
+  ApiCallResponse? apiResulto3c;
 
   @override
   void initState(BuildContext context) {}

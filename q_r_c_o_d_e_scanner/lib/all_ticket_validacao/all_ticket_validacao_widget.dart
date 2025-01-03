@@ -1,8 +1,10 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import '/backend/schema/structs/index.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -13,15 +15,7 @@ import 'all_ticket_validacao_model.dart';
 export 'all_ticket_validacao_model.dart';
 
 class AllTicketValidacaoWidget extends StatefulWidget {
-  const AllTicketValidacaoWidget({
-    super.key,
-    String? eventotipo,
-    bool? conexao,
-  })  : this.eventotipo = eventotipo ?? 'Selecione o Evento!',
-        this.conexao = conexao ?? false;
-
-  final String eventotipo;
-  final bool conexao;
+  const AllTicketValidacaoWidget({super.key});
 
   @override
   State<AllTicketValidacaoWidget> createState() =>
@@ -44,11 +38,7 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
     _model.textFieldATextController ??= TextEditingController();
     _model.textFieldAFocusNode ??= FocusNode();
 
-    _model.textController2 ??= TextEditingController(
-        text: valueOrDefault<String>(
-      _model.testecod,
-      'Entrada Errada! Dirija-se á Entrada: PISTA!',
-    ));
+    _model.textController2 ??= TextEditingController(text: _model.codigo);
     _model.textFieldFocusNode ??= FocusNode();
   }
 
@@ -61,6 +51,8 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Color(0xFFF1F4F8),
@@ -462,9 +454,8 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                     child: FFButtonWidget(
                       onPressed: () async {
                         if (_model.digitar) {
-                          safeSetState(() {
-                            _model.textController2?.text = '7899898601719';
-                          });
+                          _model.codigo = _model.textFieldATextController.text;
+                          safeSetState(() {});
                         } else {
                           _model.scanOut =
                               await FlutterBarcodeScanner.scanBarcode(
@@ -474,9 +465,47 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                             ScanMode.QR,
                           );
 
-                          safeSetState(() {
-                            _model.textController2?.text = _model.scanOut!;
-                          });
+                          _model.codigo = _model.scanOut!;
+                          safeSetState(() {});
+                        }
+
+                        _model.apiResultv1h =
+                            await APIAllVipGroup.getIngrssoCall.call(
+                          api: FFAppState().ipadress,
+                          codIngresso: _model.codigo,
+                        );
+
+                        if ((_model.apiResultv1h?.succeeded ?? true)) {
+                          _model.apiResulto3c = await APIAllVipGroup
+                              .putAtualizaIngressoValidoCall
+                              .call(
+                            api: FFAppState().ipadress,
+                            idIngresso: IngressoStruct.maybeFromMap(
+                                    (_model.apiResultv1h?.jsonBody ?? ''))
+                                ?.idIngresso
+                                ?.toString(),
+                            dataHoraValidaIngresso:
+                                getCurrentTimestamp.toString(),
+                          );
+
+                          if ((_model.apiResulto3c?.succeeded ?? true)) {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text('Sucesso'),
+                                  content: Text('Ingrsso Validado'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
                         }
 
                         safeSetState(() {});

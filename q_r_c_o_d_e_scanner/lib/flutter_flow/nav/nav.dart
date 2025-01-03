@@ -61,16 +61,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'AllTicketValidacao',
           path: '/allTicketValidacao',
-          builder: (context, params) => AllTicketValidacaoWidget(
-            eventotipo: params.getParam(
-              'eventotipo',
-              ParamType.String,
-            ),
-            conexao: params.getParam(
-              'conexao',
-              ParamType.bool,
-            ),
-          ),
+          builder: (context, params) => AllTicketValidacaoWidget(),
         ),
         FFRoute(
           name: 'AllTicketEntradas',

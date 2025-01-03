@@ -21,6 +21,9 @@ class APIAllVipGroup {
   static Map<String, String> headers = {};
   static PostGerarTokenCall postGerarTokenCall = PostGerarTokenCall();
   static GetEntradasCall getEntradasCall = GetEntradasCall();
+  static GetIngrssoCall getIngrssoCall = GetIngrssoCall();
+  static PutAtualizaIngressoValidoCall putAtualizaIngressoValidoCall =
+      PutAtualizaIngressoValidoCall();
 }
 
 class PostGerarTokenCall {
@@ -67,6 +70,63 @@ class GetEntradasCall {
       callType: ApiCallType.GET,
       headers: {},
       params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetIngrssoCall {
+  Future<ApiCallResponse> call({
+    String? codIngresso = '',
+    String? api = '',
+  }) async {
+    final baseUrl = APIAllVipGroup.getBaseUrl(
+      api: api,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'GetIngrsso',
+      apiUrl: '${baseUrl}/Ingresso/${codIngresso}',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class PutAtualizaIngressoValidoCall {
+  Future<ApiCallResponse> call({
+    String? idIngresso = '',
+    String? dataHoraValidaIngresso = '',
+    String? api = '',
+  }) async {
+    final baseUrl = APIAllVipGroup.getBaseUrl(
+      api: api,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "DataHoraValidaIngresso": "${escapeStringForJson(dataHoraValidaIngresso)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'PutAtualizaIngressoValido',
+      apiUrl: '${baseUrl}/AtualizaIngressoValido/${idIngresso}',
+      callType: ApiCallType.PUT,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

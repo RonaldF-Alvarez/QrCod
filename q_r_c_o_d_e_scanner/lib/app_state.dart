@@ -29,4 +29,33 @@ class FFAppState extends ChangeNotifier {
   set ipadress(String value) {
     _ipadress = value;
   }
+
+  List<EntradasStruct> _entradasSelecionadas = [];
+  List<EntradasStruct> get entradasSelecionadas => _entradasSelecionadas;
+  set entradasSelecionadas(List<EntradasStruct> value) {
+    _entradasSelecionadas = value;
+  }
+
+  void addToEntradasSelecionadas(EntradasStruct value) {
+    entradasSelecionadas.add(value);
+  }
+
+  void removeFromEntradasSelecionadas(EntradasStruct value) {
+    entradasSelecionadas.remove(value);
+  }
+
+  void removeAtIndexFromEntradasSelecionadas(int index) {
+    entradasSelecionadas.removeAt(index);
+  }
+
+  void updateEntradasSelecionadasAtIndex(
+    int index,
+    EntradasStruct Function(EntradasStruct) updateFn,
+  ) {
+    entradasSelecionadas[index] = updateFn(_entradasSelecionadas[index]);
+  }
+
+  void insertAtIndexInEntradasSelecionadas(int index, EntradasStruct value) {
+    entradasSelecionadas.insert(index, value);
+  }
 }
