@@ -343,7 +343,7 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                               return AlertDialog(
                                 title: Text('Erro'),
                                 content: Text(
-                                    '${_model.textFieldDigitarSerialTextController.text}não encontrado'),
+                                    '${_model.textFieldDigitarSerialTextController.text} não encontrado'),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>
