@@ -29,6 +29,10 @@ class APIAllVipGroup {
   static GetColetorXEntradasCall getColetorXEntradasCall =
       GetColetorXEntradasCall();
   static GetEntradaCall getEntradaCall = GetEntradaCall();
+  static PostInserteColetorxEntradaCall postInserteColetorxEntradaCall =
+      PostInserteColetorxEntradaCall();
+  static DeleteColetorxEntradasCall deleteColetorxEntradasCall =
+      DeleteColetorxEntradasCall();
 }
 
 class PostGerarTokenCall {
@@ -242,6 +246,65 @@ class GetEntradaCall {
       callName: 'GetEntrada',
       apiUrl: '${baseUrl}/GetEntrada/${idEntra}',
       callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class PostInserteColetorxEntradaCall {
+  Future<ApiCallResponse> call({
+    int? idColetor,
+    int? idEntrada,
+    String? api = '',
+  }) async {
+    final baseUrl = APIAllVipGroup.getBaseUrl(
+      api: api,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "ID_COLETOR": ${idColetor},
+  "ID_ENTRADA": ${idEntrada}
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'PostInserteColetorxEntrada',
+      apiUrl: '${baseUrl}/PostInserteColetorxEntrada',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class DeleteColetorxEntradasCall {
+  Future<ApiCallResponse> call({
+    int? idColetor,
+    int? idEntrada,
+    String? api = '',
+  }) async {
+    final baseUrl = APIAllVipGroup.getBaseUrl(
+      api: api,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'DeleteColetorxEntradas',
+      apiUrl: '${baseUrl}/DeleteColetorxEntradas/${idColetor}/${idEntrada}',
+      callType: ApiCallType.DELETE,
       headers: {},
       params: {},
       returnBody: true,

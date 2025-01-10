@@ -389,8 +389,6 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                                     (_model.resultColetor?.jsonBody ?? ''))!
                                 .idColetor;
                             safeSetState(() {});
-
-                            context.pushNamed('AllTicketEntradas');
                           } else {
                             _model.apiResulttuv =
                                 await APIAllVipGroup.postInsereColetorCall.call(
@@ -399,14 +397,13 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                             );
 
                             _shouldSetState = true;
-                            if ((_model.apiResulttuv?.succeeded ?? true)) {
+                            if (!(_model.apiResulttuv?.succeeded ?? true)) {
                               if (_shouldSetState) safeSetState(() {});
                               return;
                             }
-
-                            if (_shouldSetState) safeSetState(() {});
-                            return;
                           }
+
+                          context.pushNamed('AllTicketEntradas');
                         } else {
                           await showDialog(
                             context: context,
