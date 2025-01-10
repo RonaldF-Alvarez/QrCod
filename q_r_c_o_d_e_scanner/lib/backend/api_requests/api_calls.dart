@@ -24,6 +24,11 @@ class APIAllVipGroup {
   static GetIngrssoCall getIngrssoCall = GetIngrssoCall();
   static PutAtualizaIngressoValidoCall putAtualizaIngressoValidoCall =
       PutAtualizaIngressoValidoCall();
+  static GetColetorCall getColetorCall = GetColetorCall();
+  static PostInsereColetorCall postInsereColetorCall = PostInsereColetorCall();
+  static GetColetorXEntradasCall getColetorXEntradasCall =
+      GetColetorXEntradasCall();
+  static GetEntradaCall getEntradaCall = GetEntradaCall();
 }
 
 class PostGerarTokenCall {
@@ -58,6 +63,7 @@ class PostGerarTokenCall {
 
 class GetEntradasCall {
   Future<ApiCallResponse> call({
+    int? idcoletorentradas,
     String? api = '',
   }) async {
     final baseUrl = APIAllVipGroup.getBaseUrl(
@@ -66,7 +72,7 @@ class GetEntradasCall {
 
     return ApiManager.instance.makeApiCall(
       callName: 'GetEntradas',
-      apiUrl: '${baseUrl}/Entradas',
+      apiUrl: '${baseUrl}/Entradas/${idcoletorentradas}',
       callType: ApiCallType.GET,
       headers: {},
       params: {},
@@ -127,6 +133,117 @@ class PutAtualizaIngressoValidoCall {
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetColetorCall {
+  Future<ApiCallResponse> call({
+    String? codColetor = '',
+    String? api = '',
+  }) async {
+    final baseUrl = APIAllVipGroup.getBaseUrl(
+      api: api,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'GetColetor',
+      apiUrl: '${baseUrl}/GetColetor/${codColetor}',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class PostInsereColetorCall {
+  Future<ApiCallResponse> call({
+    String? codColetor = '',
+    String? modelo = '',
+    String? refColetor = '',
+    String? api = '',
+  }) async {
+    final baseUrl = APIAllVipGroup.getBaseUrl(
+      api: api,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "COD_COLETOR": "${escapeStringForJson(codColetor)}",
+  "MODELO": "${escapeStringForJson(modelo)}",
+  "REF_COLETOR": "${escapeStringForJson(refColetor)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'PostInsereColetor',
+      apiUrl: '${baseUrl}/PostInsereColetor',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetColetorXEntradasCall {
+  Future<ApiCallResponse> call({
+    int? idCol,
+    int? idEntrada,
+    String? api = '',
+  }) async {
+    final baseUrl = APIAllVipGroup.getBaseUrl(
+      api: api,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'GetColetorXEntradas',
+      apiUrl: '${baseUrl}/GetColetorXEntradas/${idCol}',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetEntradaCall {
+  Future<ApiCallResponse> call({
+    int? idEntra,
+    String? api = '',
+  }) async {
+    final baseUrl = APIAllVipGroup.getBaseUrl(
+      api: api,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'GetEntrada',
+      apiUrl: '${baseUrl}/GetEntrada/${idEntra}',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

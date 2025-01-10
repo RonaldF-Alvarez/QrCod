@@ -37,6 +37,8 @@ class _TelaCadastroWidgetState extends State<TelaCadastroWidget> {
 
     _model.coletorTextController ??= TextEditingController();
     _model.coletorFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

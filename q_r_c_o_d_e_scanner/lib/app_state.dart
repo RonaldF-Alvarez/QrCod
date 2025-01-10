@@ -58,4 +58,28 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInEntradasSelecionadas(int index, EntradasStruct value) {
     entradasSelecionadas.insert(index, value);
   }
+
+  String _DataHoraIngresso = '';
+  String get DataHoraIngresso => _DataHoraIngresso;
+  set DataHoraIngresso(String value) {
+    _DataHoraIngresso = value;
+  }
+
+  String _coletor = '';
+  String get coletor => _coletor;
+  set coletor(String value) {
+    _coletor = value;
+  }
+
+  int _idColetor = 0;
+  int get idColetor => _idColetor;
+  set idColetor(int value) {
+    _idColetor = value;
+  }
+
+  int _idEntrad = 0;
+  int get idEntrad => _idEntrad;
+  set idEntrad(int value) {
+    _idEntrad = value;
+  }
 }

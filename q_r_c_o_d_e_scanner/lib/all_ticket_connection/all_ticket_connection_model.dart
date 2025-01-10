@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:ui';
+import '/backend/schema/structs/index.dart';
 import 'all_ticket_connection_widget.dart' show AllTicketConnectionWidget;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,14 +28,20 @@ class AllTicketConnectionModel
   FormFieldController<String>? radioButtonValueController;
   // State field(s) for SwitchListTile widget.
   bool? switchListTileValue;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode;
-  TextEditingController? textController2;
-  String? Function(BuildContext, String?)? textController2Validator;
+  // State field(s) for TextColetor widget.
+  FocusNode? textColetorFocusNode;
+  TextEditingController? textColetorTextController;
+  String? Function(BuildContext, String?)? textColetorTextControllerValidator;
+  // State field(s) for TextFieldAAA widget.
+  FocusNode? textFieldAAAFocusNode;
+  TextEditingController? textFieldAAATextController;
+  String? Function(BuildContext, String?)? textFieldAAATextControllerValidator;
   // Stores action output result for [Backend Call - API (PostGerarToken)] action in Buttondeconectar widget.
   ApiCallResponse? apiAllVipResult;
-  // Stores action output result for [Backend Call - API (GetEntradas)] action in Buttondeconectar widget.
-  ApiCallResponse? getEntradaResult;
+  // Stores action output result for [Backend Call - API (GetColetor)] action in Buttondeconectar widget.
+  ApiCallResponse? resultColetor;
+  // Stores action output result for [Backend Call - API (PostInsereColetor)] action in Buttondeconectar widget.
+  ApiCallResponse? apiResulttuv;
 
   @override
   void initState(BuildContext context) {}
@@ -44,8 +51,11 @@ class AllTicketConnectionModel
     textFieldDigitarSerialFocusNode?.dispose();
     textFieldDigitarSerialTextController?.dispose();
 
-    textFieldFocusNode?.dispose();
-    textController2?.dispose();
+    textColetorFocusNode?.dispose();
+    textColetorTextController?.dispose();
+
+    textFieldAAAFocusNode?.dispose();
+    textFieldAAATextController?.dispose();
   }
 
   /// Additional helper methods.

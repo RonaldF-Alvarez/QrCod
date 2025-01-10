@@ -23,7 +23,9 @@ class AllTicketValidacaoModel
 
   String codigo = '';
 
-  bool ingressovalidado = false;
+  Color ingressovalidado = Color(4291546059);
+
+  Color? ingressoanterior = Color(4291546059);
 
   ///  State fields for stateful widgets in this page.
 
@@ -37,15 +39,23 @@ class AllTicketValidacaoModel
   FocusNode? textFieldAFocusNode;
   TextEditingController? textFieldATextController;
   String? Function(BuildContext, String?)? textFieldATextControllerValidator;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode;
-  TextEditingController? textController2;
-  String? Function(BuildContext, String?)? textController2Validator;
+  // State field(s) for TextFieldTela widget.
+  FocusNode? textFieldTelaFocusNode;
+  TextEditingController? textFieldTelaTextController;
+  String? Function(BuildContext, String?)? textFieldTelaTextControllerValidator;
   var scanOut = '';
   // Stores action output result for [Backend Call - API (GetIngrsso)] action in Button widget.
   ApiCallResponse? apiResultv1h;
+  // Stores action output result for [Backend Call - API (GetColetorXEntradas)] action in Button widget.
+  ApiCallResponse? colXEntradas;
   // Stores action output result for [Backend Call - API (PutAtualizaIngressoValido)] action in Button widget.
   ApiCallResponse? apiResulto3c;
+  // Stores action output result for [Backend Call - API (GetEntrada)] action in Button widget.
+  ApiCallResponse? getEntrada;
+  // State field(s) for TextFieldZ widget.
+  FocusNode? textFieldZFocusNode;
+  TextEditingController? textFieldZTextController;
+  String? Function(BuildContext, String?)? textFieldZTextControllerValidator;
 
   @override
   void initState(BuildContext context) {}
@@ -55,7 +65,10 @@ class AllTicketValidacaoModel
     textFieldAFocusNode?.dispose();
     textFieldATextController?.dispose();
 
-    textFieldFocusNode?.dispose();
-    textController2?.dispose();
+    textFieldTelaFocusNode?.dispose();
+    textFieldTelaTextController?.dispose();
+
+    textFieldZFocusNode?.dispose();
+    textFieldZTextController?.dispose();
   }
 }

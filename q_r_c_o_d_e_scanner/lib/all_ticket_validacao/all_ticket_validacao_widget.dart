@@ -38,8 +38,15 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
     _model.textFieldATextController ??= TextEditingController();
     _model.textFieldAFocusNode ??= FocusNode();
 
-    _model.textController2 ??= TextEditingController(text: _model.codigo);
-    _model.textFieldFocusNode ??= FocusNode();
+    _model.textFieldTelaTextController ??=
+        TextEditingController(text: 'AGUARDANDO LEITURA!');
+    _model.textFieldTelaFocusNode ??= FocusNode();
+
+    _model.textFieldZTextController ??=
+        TextEditingController(text: 'AGUARDANDO LEITURA!');
+    _model.textFieldZFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -125,8 +132,15 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                             color: FlutterFlowTheme.of(context).info,
                             size: 24.0,
                           ),
-                          onPressed: () {
-                            print('IconButton pressed ...');
+                          onPressed: () async {
+                            safeSetState(() {
+                              _model.textFieldTelaTextController?.text =
+                                  'AGUARDANDO LEITURA!';
+                            });
+                            _model.ingressovalidado = Color(0xFFCBCBCB);
+                            safeSetState(() {});
+
+                            context.pushNamed('AllTicketConnection');
                           },
                         ),
                       ),
@@ -136,225 +150,179 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 10.0, 15.0),
+              padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Column(
+                  Row(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 227.0,
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                      Text(
+                        'Digitar \nCódigo',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              fontSize: 12.0,
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                      Switch.adaptive(
+                        value: _model.switchValue1!,
+                        onChanged: (newValue) async {
+                          safeSetState(() => _model.switchValue1 = newValue!);
+                          if (newValue!) {
+                            _model.digitar = true;
+                            safeSetState(() {});
+                          } else {
+                            _model.digitar = false;
+                            safeSetState(() {});
+                          }
+                        },
+                        activeColor: FlutterFlowTheme.of(context).warning,
+                        activeTrackColor: Color(0x4EEC9C4B),
+                        inactiveTrackColor:
+                            FlutterFlowTheme.of(context).alternate,
+                        inactiveThumbColor:
+                            FlutterFlowTheme.of(context).warning,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Mostrar \nImagem',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              fontSize: 12.0,
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                      Switch.adaptive(
+                        value: _model.switchValue2!,
+                        onChanged: (newValue) async {
+                          safeSetState(() => _model.switchValue2 = newValue!);
+                        },
+                        activeColor: FlutterFlowTheme.of(context).warning,
+                        activeTrackColor: Color(0x4EEC9C4B),
+                        inactiveTrackColor:
+                            FlutterFlowTheme.of(context).alternate,
+                        inactiveThumbColor:
+                            FlutterFlowTheme.of(context).warning,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Lanterna',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              fontSize: 12.0,
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                      Switch.adaptive(
+                        value: _model.switchValue3!,
+                        onChanged: (newValue) async {
+                          safeSetState(() => _model.switchValue3 = newValue!);
+                          if (newValue!) {
+                            await actions.onFlashlight();
+                          } else {
+                            await actions.offFlashlight();
+                          }
+                        },
+                        activeColor: FlutterFlowTheme.of(context).warning,
+                        activeTrackColor: Color(0x4EEC9C4B),
+                        inactiveTrackColor:
+                            FlutterFlowTheme.of(context).alternate,
+                        inactiveThumbColor:
+                            FlutterFlowTheme.of(context).warning,
                       ),
                     ],
                   ),
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              'Digitar \nCódigo',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    fontSize: 12.0,
-                                    letterSpacing: 0.0,
-                                  ),
-                            ),
-                            Switch.adaptive(
-                              value: _model.switchValue1!,
-                              onChanged: (newValue) async {
-                                safeSetState(
-                                    () => _model.switchValue1 = newValue!);
-                                if (newValue!) {
-                                  _model.digitar = true;
-                                  safeSetState(() {});
-                                } else {
-                                  _model.digitar = false;
-                                  safeSetState(() {});
-                                }
-                              },
-                              activeColor: FlutterFlowTheme.of(context).warning,
-                              activeTrackColor: Color(0x4EEC9C4B),
-                              inactiveTrackColor:
-                                  FlutterFlowTheme.of(context).alternate,
-                              inactiveThumbColor:
-                                  FlutterFlowTheme.of(context).warning,
-                            ),
-                          ],
+            if (_model.digitar != false)
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
+                child: Container(
+                  width: MediaQuery.sizeOf(context).width * 0.8,
+                  child: TextFormField(
+                    controller: _model.textFieldATextController,
+                    focusNode: _model.textFieldAFocusNode,
+                    autofocus: false,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      isDense: true,
+                      labelStyle:
+                          FlutterFlowTheme.of(context).labelMedium.override(
+                                fontFamily: 'Inter',
+                                letterSpacing: 0.0,
+                              ),
+                      hintText: 'Número da entrada',
+                      hintStyle:
+                          FlutterFlowTheme.of(context).labelMedium.override(
+                                fontFamily: 'Inter',
+                                letterSpacing: 0.0,
+                              ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1.0,
                         ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              'Mostrar \nImagem',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    fontSize: 12.0,
-                                    letterSpacing: 0.0,
-                                  ),
-                            ),
-                            Switch.adaptive(
-                              value: _model.switchValue2!,
-                              onChanged: (newValue) async {
-                                safeSetState(
-                                    () => _model.switchValue2 = newValue!);
-                              },
-                              activeColor: FlutterFlowTheme.of(context).warning,
-                              activeTrackColor: Color(0x4EEC9C4B),
-                              inactiveTrackColor:
-                                  FlutterFlowTheme.of(context).alternate,
-                              inactiveThumbColor:
-                                  FlutterFlowTheme.of(context).warning,
-                            ),
-                          ],
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1.0,
                         ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              'Lanterna',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    fontSize: 12.0,
-                                    letterSpacing: 0.0,
-                                  ),
-                            ),
-                            Switch.adaptive(
-                              value: _model.switchValue3!,
-                              onChanged: (newValue) async {
-                                safeSetState(
-                                    () => _model.switchValue3 = newValue!);
-                                if (newValue!) {
-                                  await actions.onFlashlight();
-                                } else {
-                                  await actions.offFlashlight();
-                                }
-                              },
-                              activeColor: FlutterFlowTheme.of(context).warning,
-                              activeTrackColor: Color(0x4EEC9C4B),
-                              inactiveTrackColor:
-                                  FlutterFlowTheme.of(context).alternate,
-                              inactiveThumbColor:
-                                  FlutterFlowTheme.of(context).warning,
-                            ),
-                          ],
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      errorBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).error,
+                          width: 1.0,
                         ),
-                      ],
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedErrorBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).error,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      filled: true,
+                      fillColor:
+                          FlutterFlowTheme.of(context).secondaryBackground,
                     ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Inter',
+                          fontSize: 22.0,
+                          letterSpacing: 0.0,
+                        ),
+                    cursorColor: FlutterFlowTheme.of(context).primaryText,
+                    validator: _model.textFieldATextControllerValidator
+                        .asValidator(context),
                   ),
-                ],
+                ),
               ),
-            ),
             Flexible(
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
                 child: Container(
                   width: double.infinity,
-                  height: MediaQuery.sizeOf(context).height * 0.5,
+                  height: MediaQuery.sizeOf(context).height * 0.4,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      if (_model.digitar != false)
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 8.0, 0.0, 8.0),
-                          child: Container(
-                            width: MediaQuery.sizeOf(context).width * 0.8,
-                            child: TextFormField(
-                              controller: _model.textFieldATextController,
-                              focusNode: _model.textFieldAFocusNode,
-                              autofocus: false,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                isDense: true,
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      letterSpacing: 0.0,
-                                    ),
-                                hintText: 'Número da entrada',
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      letterSpacing: 0.0,
-                                    ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                errorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedErrorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                filled: true,
-                                fillColor: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    fontSize: 22.0,
-                                    letterSpacing: 0.0,
-                                  ),
-                              cursorColor:
-                                  FlutterFlowTheme.of(context).primaryText,
-                              validator: _model
-                                  .textFieldATextControllerValidator
-                                  .asValidator(context),
-                            ),
-                          ),
-                        ),
                       Expanded(
                         child: Align(
                           alignment: AlignmentDirectional(0.0, 0.0),
@@ -364,8 +332,8 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                             child: Container(
                               width: double.infinity,
                               child: TextFormField(
-                                controller: _model.textController2,
-                                focusNode: _model.textFieldFocusNode,
+                                controller: _model.textFieldTelaTextController,
+                                focusNode: _model.textFieldTelaFocusNode,
                                 autofocus: false,
                                 readOnly: true,
                                 obscureText: false,
@@ -414,9 +382,7 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor: _model.ingressovalidado
-                                      ? Color(0xFF28E946)
-                                      : Color(0xFFE9EC4B),
+                                  fillColor: _model.ingressovalidado,
                                 ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
@@ -424,14 +390,16 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                                       fontFamily: 'Inter',
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
-                                      fontSize: 32.0,
+                                      fontSize: 24.0,
                                       letterSpacing: 0.0,
                                     ),
                                 textAlign: TextAlign.center,
                                 maxLines: null,
+                                minLines: 3,
                                 cursorColor:
                                     FlutterFlowTheme.of(context).primaryText,
-                                validator: _model.textController2Validator
+                                validator: _model
+                                    .textFieldTelaTextControllerValidator
                                     .asValidator(context),
                               ),
                             ),
@@ -484,41 +452,207 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
 
                         _shouldSetState = true;
                         if ((_model.apiResultv1h?.succeeded ?? true)) {
-                          _model.apiResulto3c = await APIAllVipGroup
-                              .putAtualizaIngressoValidoCall
-                              .call(
-                            api: FFAppState().ipadress,
-                            idIngresso: IngressoStruct.maybeFromMap(
-                                    (_model.apiResultv1h?.jsonBody ?? ''))
-                                ?.idIngresso
-                                ?.toString(),
-                            dataHoraValidaIngresso:
-                                getCurrentTimestamp.toString(),
-                          );
+                          FFAppState().DataHoraIngresso =
+                              IngressoStruct.maybeFromMap(
+                                      (_model.apiResultv1h?.jsonBody ?? ''))!
+                                  .datahoraEntrada;
+                          safeSetState(() {});
+                          FFAppState().idEntrad = IngressoStruct.maybeFromMap(
+                                  (_model.apiResultv1h?.jsonBody ?? ''))!
+                              .idEntrada;
+                          safeSetState(() {});
+                          if (FFAppState().DataHoraIngresso == '') {
+                            _model.colXEntradas = await APIAllVipGroup
+                                .getColetorXEntradasCall
+                                .call(
+                              api: FFAppState().ipadress,
+                              idCol: FFAppState().idColetor,
+                              idEntrada: FFAppState().idEntrad,
+                            );
 
-                          _shouldSetState = true;
-                          if ((_model.apiResulto3c?.succeeded ?? true)) {
-                            _model.ingressovalidado = true;
+                            _shouldSetState = true;
+                            if ((_model.colXEntradas?.succeeded ?? true)) {
+                              _model.apiResulto3c = await APIAllVipGroup
+                                  .putAtualizaIngressoValidoCall
+                                  .call(
+                                api: FFAppState().ipadress,
+                                idIngresso: IngressoStruct.maybeFromMap(
+                                        (_model.apiResultv1h?.jsonBody ?? ''))
+                                    ?.idIngresso
+                                    ?.toString(),
+                                dataHoraValidaIngresso:
+                                    getCurrentTimestamp.toString(),
+                              );
+
+                              _shouldSetState = true;
+                              if ((_model.apiResulto3c?.succeeded ?? true)) {
+                                _model.ingressovalidado = Color(0xFF00B21D);
+                                safeSetState(() {});
+                                safeSetState(() {
+                                  _model.textFieldTelaTextController?.text =
+                                      'BEM-VINDO!';
+                                });
+                                safeSetState(() {
+                                  _model.textFieldATextController?.clear();
+                                });
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Verificado!'),
+                                      content: Text('BEM-VINDO!'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                                safeSetState(() {
+                                  _model.textFieldTelaTextController?.text =
+                                      'AGUARDANDO LEITURA!';
+                                });
+                                _model.ingressovalidado = Color(0xFFCBCBCB);
+                                safeSetState(() {});
+                                _model.ingressoanterior = Color(0xFF00B21D);
+                                safeSetState(() {});
+                                safeSetState(() {
+                                  _model.textFieldZTextController?.text =
+                                      'BEM-VINDO!';
+                                });
+                                if (_shouldSetState) safeSetState(() {});
+                                return;
+                              } else {
+                                if (_shouldSetState) safeSetState(() {});
+                                return;
+                              }
+                            } else {
+                              _model.getEntrada =
+                                  await APIAllVipGroup.getEntradaCall.call(
+                                api: FFAppState().ipadress,
+                                idEntra: FFAppState().idEntrad,
+                              );
+
+                              _shouldSetState = true;
+                              if ((_model.getEntrada?.succeeded ?? true)) {
+                                _model.ingressovalidado = Color(0xFFF9FF00);
+                                safeSetState(() {});
+                                safeSetState(() {
+                                  _model.textFieldTelaTextController?.text =
+                                      'Dirija-se à entrada:${(_model.getEntrada?.jsonBody ?? '').toString()}';
+                                });
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Erro!'),
+                                      content: Text(
+                                          'Dirija-se à entrada:${(_model.getEntrada?.jsonBody ?? '').toString()}'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                                safeSetState(() {
+                                  _model.textFieldTelaTextController?.text =
+                                      'AGUARDANDO LEITURA!';
+                                });
+                                _model.ingressovalidado = Color(0xFFCBCBCB);
+                                safeSetState(() {});
+                                _model.ingressoanterior = Color(0xFFF9FF00);
+                                safeSetState(() {});
+                                safeSetState(() {
+                                  _model.textFieldZTextController?.text =
+                                      'Dirija-se à entrada:${(_model.getEntrada?.jsonBody ?? '').toString()}';
+                                });
+                                if (_shouldSetState) safeSetState(() {});
+                                return;
+                              } else {
+                                if (_shouldSetState) safeSetState(() {});
+                                return;
+                              }
+                            }
+                          } else {
+                            _model.ingressovalidado = Color(0xFFEC0000);
                             safeSetState(() {});
                             safeSetState(() {
-                              _model.textController2?.text =
-                                  'Ingresso validado com sucesso';
+                              _model.textFieldTelaTextController?.text =
+                                  'INGRESSO JÁ VALIDADO:${FFAppState().DataHoraIngresso}';
                             });
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text('Erro!'),
+                                  content: Text(
+                                      'INGRESSO JÁ VALIDADO:${FFAppState().DataHoraIngresso}'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                             safeSetState(() {
-                              _model.textFieldATextController?.clear();
+                              _model.textFieldTelaTextController?.text =
+                                  'AGUARDANDO LEITURA!';
                             });
-                            if (_shouldSetState) safeSetState(() {});
-                            return;
-                          } else {
+                            _model.ingressovalidado = Color(0xFFCBCBCB);
+                            safeSetState(() {});
+                            _model.ingressoanterior = Color(0xFFEC0000);
+                            safeSetState(() {});
+                            safeSetState(() {
+                              _model.textFieldZTextController?.text =
+                                  'Ingresso já validado:${FFAppState().DataHoraIngresso}';
+                            });
                             if (_shouldSetState) safeSetState(() {});
                             return;
                           }
                         } else {
-                          _model.ingressovalidado = false;
+                          _model.ingressovalidado = Color(0xFFEC0000);
                           safeSetState(() {});
                           safeSetState(() {
-                            _model.textController2?.text =
-                                'Ingresso não encontrado';
+                            _model.textFieldTelaTextController?.text =
+                                'INGRESSO INVÁLIDO!';
+                          });
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title: Text('Erro'),
+                                content: Text('INGRESSO INVÁLIDO!'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          safeSetState(() {
+                            _model.textFieldTelaTextController?.text =
+                                'AGUARDANDO LEITURA!';
+                          });
+                          _model.ingressovalidado = Color(0xFFCBCBCB);
+                          safeSetState(() {});
+                          _model.ingressoanterior = Color(0xFFEC0000);
+                          safeSetState(() {});
+                          safeSetState(() {
+                            _model.textFieldZTextController?.text =
+                                'INGRESSO INVÁLIDO!';
                           });
                           if (_shouldSetState) safeSetState(() {});
                           return;
@@ -560,6 +694,115 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                       fontSize: 16.0,
                       letterSpacing: 0.0,
                     ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+              child: Container(
+                width: double.infinity,
+                height: MediaQuery.sizeOf(context).height * 0.1,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                      child: Text(
+                        'Ingresso Anterior:',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                    ),
+                    Align(
+                      alignment: AlignmentDirectional(0.0, 0.0),
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(3.0, 2.0, 3.0, 8.0),
+                        child: Container(
+                          width: double.infinity,
+                          child: TextFormField(
+                            controller: _model.textFieldZTextController,
+                            focusNode: _model.textFieldZFocusNode,
+                            autofocus: false,
+                            readOnly: true,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              labelStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    fontSize: 16.0,
+                                    letterSpacing: 0.0,
+                                  ),
+                              hintStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).warning,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).error,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              filled: true,
+                              fillColor: valueOrDefault<Color>(
+                                _model.ingressoanterior,
+                                Color(0xFFCBCBCB),
+                              ),
+                            ),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  fontSize: 16.0,
+                                  letterSpacing: 0.0,
+                                ),
+                            textAlign: TextAlign.center,
+                            maxLines: null,
+                            minLines: 1,
+                            cursorColor:
+                                FlutterFlowTheme.of(context).primaryText,
+                            validator: _model.textFieldZTextControllerValidator
+                                .asValidator(context),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

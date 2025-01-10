@@ -27,6 +27,8 @@ class _AllTicketEntradasWidgetState extends State<AllTicketEntradasWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AllTicketEntradasModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -83,6 +85,7 @@ class _AllTicketEntradasWidgetState extends State<AllTicketEntradasWidget> {
               FutureBuilder<ApiCallResponse>(
                 future: APIAllVipGroup.getEntradasCall.call(
                   api: FFAppState().ipadress,
+                  idcoletorentradas: FFAppState().idColetor,
                 ),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.
@@ -157,15 +160,14 @@ class _AllTicketEntradasWidgetState extends State<AllTicketEntradasWidget> {
                                         safeSetState(() => _model
                                                 .checkboxValueMap[entradaItem] =
                                             newValue!);
-                                        if (newValue!) {
-                                          FFAppState()
-                                              .addToEntradasSelecionadas(
-                                                  entradaItem);
-                                          safeSetState(() {});
-                                        } else {
+
+                                        if (!newValue!) {
                                           FFAppState()
                                               .removeFromEntradasSelecionadas(
-                                                  entradaItem);
+                                                  EntradasStruct(
+                                            idEntrada: entradaItem.idEntrada,
+                                            descricao: entradaItem.descricao,
+                                          ));
                                           safeSetState(() {});
                                         }
                                       },

@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:ui';
+import '/backend/schema/structs/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -32,8 +33,13 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
     _model.textFieldDigitarSerialTextController ??= TextEditingController();
     _model.textFieldDigitarSerialFocusNode ??= FocusNode();
 
-    _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode ??= FocusNode();
+    _model.textColetorTextController ??= TextEditingController();
+    _model.textColetorFocusNode ??= FocusNode();
+
+    _model.textFieldAAATextController ??= TextEditingController();
+    _model.textFieldAAAFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -227,8 +233,8 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                     child: Container(
                       width: 280.0,
                       child: TextFormField(
-                        controller: _model.textController2,
-                        focusNode: _model.textFieldFocusNode,
+                        controller: _model.textColetorTextController,
+                        focusNode: _model.textColetorFocusNode,
                         autofocus: false,
                         obscureText: false,
                         decoration: InputDecoration(
@@ -239,7 +245,7 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                                     fontFamily: 'Inter',
                                     letterSpacing: 0.0,
                                   ),
-                          hintText: 'Servidor Logado...',
+                          hintText: 'Nome do Coletor',
                           hintStyle:
                               FlutterFlowTheme.of(context).labelMedium.override(
                                     fontFamily: 'Inter',
@@ -282,11 +288,71 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                               letterSpacing: 0.0,
                             ),
                         cursorColor: FlutterFlowTheme.of(context).primaryText,
-                        validator: _model.textController2Validator
+                        validator: _model.textColetorTextControllerValidator
                             .asValidator(context),
                       ),
                     ),
                   ),
+                ),
+              ),
+              Container(
+                width: 200.0,
+                child: TextFormField(
+                  controller: _model.textFieldAAATextController,
+                  focusNode: _model.textFieldAAAFocusNode,
+                  autofocus: false,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    isDense: true,
+                    labelStyle:
+                        FlutterFlowTheme.of(context).labelMedium.override(
+                              fontFamily: 'Inter',
+                              letterSpacing: 0.0,
+                            ),
+                    hintText: 'TextField',
+                    hintStyle:
+                        FlutterFlowTheme.of(context).labelMedium.override(
+                              fontFamily: 'Inter',
+                              letterSpacing: 0.0,
+                            ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0x00000000),
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0x00000000),
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).error,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    filled: true,
+                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
+                  ),
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        letterSpacing: 0.0,
+                      ),
+                  cursorColor: FlutterFlowTheme.of(context).primaryText,
+                  validator: _model.textFieldAAATextControllerValidator
+                      .asValidator(context),
                 ),
               ),
               Flexible(
@@ -308,31 +374,36 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                           FFAppState().ipadress =
                               _model.textFieldDigitarSerialTextController.text;
                           safeSetState(() {});
-                          _model.getEntradaResult =
-                              await APIAllVipGroup.getEntradasCall.call(
+                          FFAppState().coletor =
+                              _model.textColetorTextController.text;
+                          safeSetState(() {});
+                          _model.resultColetor =
+                              await APIAllVipGroup.getColetorCall.call(
                             api: FFAppState().ipadress,
+                            codColetor: FFAppState().coletor,
                           );
 
                           _shouldSetState = true;
-                          if ((_model.getEntradaResult?.succeeded ?? true)) {
+                          if ((_model.resultColetor?.succeeded ?? true)) {
+                            FFAppState().idColetor = ColetorStruct.maybeFromMap(
+                                    (_model.resultColetor?.jsonBody ?? ''))!
+                                .idColetor;
+                            safeSetState(() {});
+
                             context.pushNamed('AllTicketEntradas');
                           } else {
-                            await showDialog(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: Text('Erro'),
-                                  content: Text('Erro no GetEntrada'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
-                                    ),
-                                  ],
-                                );
-                              },
+                            _model.apiResulttuv =
+                                await APIAllVipGroup.postInsereColetorCall.call(
+                              api: FFAppState().ipadress,
+                              codColetor: FFAppState().coletor,
                             );
+
+                            _shouldSetState = true;
+                            if ((_model.apiResulttuv?.succeeded ?? true)) {
+                              if (_shouldSetState) safeSetState(() {});
+                              return;
+                            }
+
                             if (_shouldSetState) safeSetState(() {});
                             return;
                           }

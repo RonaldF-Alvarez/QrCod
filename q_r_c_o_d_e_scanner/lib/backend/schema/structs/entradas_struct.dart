@@ -10,9 +10,13 @@ class EntradasStruct extends BaseStruct {
     int? idEntrada,
     String? descricao,
     String? codigoAllticket,
+    int? mark,
+    int? idColetor,
   })  : _idEntrada = idEntrada,
         _descricao = descricao,
-        _codigoAllticket = codigoAllticket;
+        _codigoAllticket = codigoAllticket,
+        _mark = mark,
+        _idColetor = idColetor;
 
   // "idEntrada" field.
   int? _idEntrada;
@@ -37,10 +41,30 @@ class EntradasStruct extends BaseStruct {
 
   bool hasCodigoAllticket() => _codigoAllticket != null;
 
+  // "mark" field.
+  int? _mark;
+  int get mark => _mark ?? 0;
+  set mark(int? val) => _mark = val;
+
+  void incrementMark(int amount) => mark = mark + amount;
+
+  bool hasMark() => _mark != null;
+
+  // "idColetor" field.
+  int? _idColetor;
+  int get idColetor => _idColetor ?? 0;
+  set idColetor(int? val) => _idColetor = val;
+
+  void incrementIdColetor(int amount) => idColetor = idColetor + amount;
+
+  bool hasIdColetor() => _idColetor != null;
+
   static EntradasStruct fromMap(Map<String, dynamic> data) => EntradasStruct(
         idEntrada: castToType<int>(data['idEntrada']),
         descricao: data['descricao'] as String?,
         codigoAllticket: data['codigoAllticket'] as String?,
+        mark: castToType<int>(data['mark']),
+        idColetor: castToType<int>(data['idColetor']),
       );
 
   static EntradasStruct? maybeFromMap(dynamic data) =>
@@ -50,6 +74,8 @@ class EntradasStruct extends BaseStruct {
         'idEntrada': _idEntrada,
         'descricao': _descricao,
         'codigoAllticket': _codigoAllticket,
+        'mark': _mark,
+        'idColetor': _idColetor,
       }.withoutNulls;
 
   @override
@@ -65,6 +91,14 @@ class EntradasStruct extends BaseStruct {
         'codigoAllticket': serializeParam(
           _codigoAllticket,
           ParamType.String,
+        ),
+        'mark': serializeParam(
+          _mark,
+          ParamType.int,
+        ),
+        'idColetor': serializeParam(
+          _idColetor,
+          ParamType.int,
         ),
       }.withoutNulls;
 
@@ -85,6 +119,16 @@ class EntradasStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
+        mark: deserializeParam(
+          data['mark'],
+          ParamType.int,
+          false,
+        ),
+        idColetor: deserializeParam(
+          data['idColetor'],
+          ParamType.int,
+          false,
+        ),
       );
 
   @override
@@ -95,21 +139,27 @@ class EntradasStruct extends BaseStruct {
     return other is EntradasStruct &&
         idEntrada == other.idEntrada &&
         descricao == other.descricao &&
-        codigoAllticket == other.codigoAllticket;
+        codigoAllticket == other.codigoAllticket &&
+        mark == other.mark &&
+        idColetor == other.idColetor;
   }
 
   @override
-  int get hashCode =>
-      const ListEquality().hash([idEntrada, descricao, codigoAllticket]);
+  int get hashCode => const ListEquality()
+      .hash([idEntrada, descricao, codigoAllticket, mark, idColetor]);
 }
 
 EntradasStruct createEntradasStruct({
   int? idEntrada,
   String? descricao,
   String? codigoAllticket,
+  int? mark,
+  int? idColetor,
 }) =>
     EntradasStruct(
       idEntrada: idEntrada,
       descricao: descricao,
       codigoAllticket: codigoAllticket,
+      mark: mark,
+      idColetor: idColetor,
     );

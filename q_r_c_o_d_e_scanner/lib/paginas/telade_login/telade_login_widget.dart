@@ -78,6 +78,8 @@ class _TeladeLoginWidgetState extends State<TeladeLoginWidget>
         ],
       ),
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
