@@ -8,6 +8,7 @@ import 'dart:ui';
 import '/backend/schema/structs/index.dart';
 import 'all_ticket_connection_widget.dart' show AllTicketConnectionWidget;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -25,17 +26,15 @@ class AllTicketConnectionModel
   String? Function(BuildContext, String?)?
       textFieldDigitarSerialTextControllerValidator;
   // State field(s) for RadioButton widget.
-  FormFieldController<String>? radioButtonValueController;
+  FormFieldController<String>? radioButtonValueController1;
+  // State field(s) for RadioButton widget.
+  FormFieldController<String>? radioButtonValueController2;
   // State field(s) for SwitchListTile widget.
   bool? switchListTileValue;
   // State field(s) for TextColetor widget.
   FocusNode? textColetorFocusNode;
   TextEditingController? textColetorTextController;
   String? Function(BuildContext, String?)? textColetorTextControllerValidator;
-  // State field(s) for TextFieldAAA widget.
-  FocusNode? textFieldAAAFocusNode;
-  TextEditingController? textFieldAAATextController;
-  String? Function(BuildContext, String?)? textFieldAAATextControllerValidator;
   // Stores action output result for [Backend Call - API (PostGerarToken)] action in Buttondeconectar widget.
   ApiCallResponse? apiAllVipResult;
   // Stores action output result for [Backend Call - API (GetColetor)] action in Buttondeconectar widget.
@@ -55,11 +54,9 @@ class AllTicketConnectionModel
 
     textColetorFocusNode?.dispose();
     textColetorTextController?.dispose();
-
-    textFieldAAAFocusNode?.dispose();
-    textFieldAAATextController?.dispose();
   }
 
   /// Additional helper methods.
-  String? get radioButtonValue => radioButtonValueController?.value;
+  String? get radioButtonValue1 => radioButtonValueController1?.value;
+  String? get radioButtonValue2 => radioButtonValueController2?.value;
 }

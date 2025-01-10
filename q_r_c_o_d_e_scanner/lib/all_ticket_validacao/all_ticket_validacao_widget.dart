@@ -631,7 +631,9 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                             builder: (alertDialogContext) {
                               return AlertDialog(
                                 title: Text('Erro'),
-                                content: Text('INGRESSO INVÁLIDO!'),
+                                content: Text(APIErrorStruct.maybeFromMap(
+                                        (_model.apiResultv1h?.jsonBody ?? ''))!
+                                    .result),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>

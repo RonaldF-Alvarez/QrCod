@@ -7,13 +7,19 @@ import '/flutter_flow/form_field_controller.dart';
 import 'dart:ui';
 import '/backend/schema/structs/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'all_ticket_connection_model.dart';
 export 'all_ticket_connection_model.dart';
 
 class AllTicketConnectionWidget extends StatefulWidget {
-  const AllTicketConnectionWidget({super.key});
+  const AllTicketConnectionWidget({
+    super.key,
+    String? teste,
+  }) : this.teste = teste ?? 'true';
+
+  final String teste;
 
   @override
   State<AllTicketConnectionWidget> createState() =>
@@ -30,14 +36,18 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
     super.initState();
     _model = createModel(context, () => AllTicketConnectionModel());
 
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      safeSetState(() {
+        _model.radioButtonValueController1?.value = 'True';
+      });
+    });
+
     _model.textFieldDigitarSerialTextController ??= TextEditingController();
     _model.textFieldDigitarSerialFocusNode ??= FocusNode();
 
     _model.textColetorTextController ??= TextEditingController();
     _model.textColetorFocusNode ??= FocusNode();
-
-    _model.textFieldAAATextController ??= TextEditingController();
-    _model.textFieldAAAFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -141,6 +151,7 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                           fontSize: 14.0,
                           letterSpacing: 0.0,
                         ),
+                    textAlign: TextAlign.center,
                     cursorColor: FlutterFlowTheme.of(context).primaryText,
                     validator: _model
                         .textFieldDigitarSerialTextControllerValidator
@@ -149,37 +160,99 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                 ),
               ),
               Flexible(
-                child: Align(
-                  alignment: AlignmentDirectional(0.0, 1.0),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                    child: FlutterFlowRadioButton(
-                      options: [
-                        'Servidor Local (IP)',
-                        'Servidor Online (Serial)'
-                      ].toList(),
-                      onChanged: (val) => safeSetState(() {}),
-                      controller: _model.radioButtonValueController ??=
-                          FormFieldController<String>(null),
-                      optionHeight: 32.0,
-                      textStyle:
-                          FlutterFlowTheme.of(context).labelMedium.override(
-                                fontFamily: 'Inter',
-                                letterSpacing: 0.0,
+                child: Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(38.0, 50.0, 38.0, 0.0),
+                  child: Container(
+                    width: double.infinity,
+                    height: 100.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Flexible(
+                              child: Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: FlutterFlowRadioButton(
+                                  options:
+                                      ['Servidor Local (IP + Rota)'].toList(),
+                                  onChanged: (val) => safeSetState(() {}),
+                                  controller:
+                                      _model.radioButtonValueController1 ??=
+                                          FormFieldController<String>(null),
+                                  optionHeight: 32.0,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  selectedTextStyle:
+                                      FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            letterSpacing: 0.0,
+                                          ),
+                                  buttonPosition: RadioButtonPosition.left,
+                                  direction: Axis.vertical,
+                                  radioButtonColor:
+                                      FlutterFlowTheme.of(context).warning,
+                                  inactiveRadioButtonColor:
+                                      FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                  toggleable: false,
+                                  horizontalAlignment: WrapAlignment.start,
+                                  verticalAlignment: WrapCrossAlignment.start,
+                                ),
                               ),
-                      selectedTextStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.override(
-                                fontFamily: 'Inter',
-                                letterSpacing: 0.0,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Flexible(
+                              child: Opacity(
+                                opacity: 0.5,
+                                child: Align(
+                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  child: FlutterFlowRadioButton(
+                                    options: ['Servidor on-line (serial)   ']
+                                        .toList(),
+                                    onChanged: (val) => safeSetState(() {}),
+                                    controller:
+                                        _model.radioButtonValueController2 ??=
+                                            FormFieldController<String>(null),
+                                    optionHeight: 32.0,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
+                                    buttonPosition: RadioButtonPosition.left,
+                                    direction: Axis.vertical,
+                                    radioButtonColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                    inactiveRadioButtonColor:
+                                        FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                    toggleable: false,
+                                    horizontalAlignment: WrapAlignment.start,
+                                    verticalAlignment: WrapCrossAlignment.start,
+                                  ),
+                                ),
                               ),
-                      buttonPosition: RadioButtonPosition.left,
-                      direction: Axis.vertical,
-                      radioButtonColor: FlutterFlowTheme.of(context).warning,
-                      inactiveRadioButtonColor:
-                          FlutterFlowTheme.of(context).secondaryText,
-                      toggleable: false,
-                      horizontalAlignment: WrapAlignment.start,
-                      verticalAlignment: WrapCrossAlignment.start,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -293,66 +366,6 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                       ),
                     ),
                   ),
-                ),
-              ),
-              Container(
-                width: 200.0,
-                child: TextFormField(
-                  controller: _model.textFieldAAATextController,
-                  focusNode: _model.textFieldAAAFocusNode,
-                  autofocus: false,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    isDense: true,
-                    labelStyle:
-                        FlutterFlowTheme.of(context).labelMedium.override(
-                              fontFamily: 'Inter',
-                              letterSpacing: 0.0,
-                            ),
-                    hintText: 'TextField',
-                    hintStyle:
-                        FlutterFlowTheme.of(context).labelMedium.override(
-                              fontFamily: 'Inter',
-                              letterSpacing: 0.0,
-                            ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).error,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    filled: true,
-                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                  ),
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Inter',
-                        letterSpacing: 0.0,
-                      ),
-                  cursorColor: FlutterFlowTheme.of(context).primaryText,
-                  validator: _model.textFieldAAATextControllerValidator
-                      .asValidator(context),
                 ),
               ),
               Flexible(

@@ -71,7 +71,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'AllTicketConnection',
           path: '/allTicketConnection',
-          builder: (context, params) => AllTicketConnectionWidget(),
+          builder: (context, params) => AllTicketConnectionWidget(
+            teste: params.getParam(
+              'teste',
+              ParamType.String,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
