@@ -200,7 +200,7 @@ class _AllTicketEntradasWidgetState extends State<AllTicketEntradasWidget> {
                                                     .postInserteColetorxEntradaCall
                                                     .call(
                                               api: FFAppState().ipadress,
-                                              idColetor: entradaItem.idColetor,
+                                              idColetor: FFAppState().idColetor,
                                               idEntrada: entradaItem.idEntrada,
                                             );
 
@@ -218,7 +218,7 @@ class _AllTicketEntradasWidgetState extends State<AllTicketEntradasWidget> {
                                                     .deleteColetorxEntradasCall
                                                     .call(
                                               api: FFAppState().ipadress,
-                                              idColetor: entradaItem.idColetor,
+                                              idColetor: FFAppState().idColetor,
                                               idEntrada: entradaItem.idEntrada,
                                             );
 
