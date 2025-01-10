@@ -397,7 +397,26 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                             );
 
                             _shouldSetState = true;
-                            if (!(_model.apiResulttuv?.succeeded ?? true)) {
+                            if ((_model.apiResulttuv?.succeeded ?? true)) {
+                              _model.resultColetor2 =
+                                  await APIAllVipGroup.getColetorCall.call(
+                                api: FFAppState().ipadress,
+                                codColetor: FFAppState().coletor,
+                              );
+
+                              _shouldSetState = true;
+                              if ((_model.resultColetor2?.succeeded ?? true)) {
+                                FFAppState().idColetor =
+                                    ColetorStruct.maybeFromMap(
+                                            (_model.resultColetor2?.jsonBody ??
+                                                ''))!
+                                        .idColetor;
+                                safeSetState(() {});
+                              } else {
+                                if (_shouldSetState) safeSetState(() {});
+                                return;
+                              }
+                            } else {
                               if (_shouldSetState) safeSetState(() {});
                               return;
                             }

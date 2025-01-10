@@ -42,6 +42,8 @@ class AllTicketConnectionModel
   ApiCallResponse? resultColetor;
   // Stores action output result for [Backend Call - API (PostInsereColetor)] action in Buttondeconectar widget.
   ApiCallResponse? apiResulttuv;
+  // Stores action output result for [Backend Call - API (GetColetor)] action in Buttondeconectar widget.
+  ApiCallResponse? resultColetor2;
 
   @override
   void initState(BuildContext context) {}
