@@ -219,7 +219,7 @@ class GetColetorXEntradasCall {
 
     return ApiManager.instance.makeApiCall(
       callName: 'GetColetorXEntradas',
-      apiUrl: '${baseUrl}/GetColetorXEntradas/${idCol}',
+      apiUrl: '${baseUrl}/GetColetorXEntradas/${idCol}/${idEntrada}',
       callType: ApiCallType.GET,
       headers: {},
       params: {},

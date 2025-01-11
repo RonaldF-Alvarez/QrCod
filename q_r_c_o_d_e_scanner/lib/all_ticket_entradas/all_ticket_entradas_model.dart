@@ -28,6 +28,8 @@ class AllTicketEntradasModel extends FlutterFlowModel<AllTicketEntradasWidget> {
   ApiCallResponse? apiResultpix;
   // Stores action output result for [Backend Call - API (DeleteColetorxEntradas)] action in Checkbox widget.
   ApiCallResponse? apiResultsnb;
+  // Stores action output result for [Backend Call - API (GetEntradas)] action in Button widget.
+  ApiCallResponse? colEntr;
 
   @override
   void initState(BuildContext context) {}

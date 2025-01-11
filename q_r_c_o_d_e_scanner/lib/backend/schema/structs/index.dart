@@ -5,3 +5,4 @@ export 'auth_login_struct.dart';
 export 'coletor_struct.dart';
 export 'entradas_struct.dart';
 export 'ingresso_struct.dart';
+export 'entrada_struct.dart';

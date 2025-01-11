@@ -542,7 +542,7 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                                 safeSetState(() {});
                                 safeSetState(() {
                                   _model.textFieldTelaTextController?.text =
-                                      'Dirija-se à entrada:${(_model.getEntrada?.jsonBody ?? '').toString()}';
+                                      'Dirija-se à entrada: ${EntradaStruct.maybeFromMap((_model.getEntrada?.jsonBody ?? ''))?.descricao}';
                                 });
                                 await showDialog(
                                   context: context,
@@ -550,7 +550,7 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                                     return AlertDialog(
                                       title: Text('Erro!'),
                                       content: Text(
-                                          'Dirija-se à entrada:${(_model.getEntrada?.jsonBody ?? '').toString()}'),
+                                          'Dirija-se à entrada: ${EntradaStruct.maybeFromMap((_model.getEntrada?.jsonBody ?? ''))?.descricao}'),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
@@ -571,7 +571,7 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                                 safeSetState(() {});
                                 safeSetState(() {
                                   _model.textFieldZTextController?.text =
-                                      'Dirija-se à entrada:${(_model.getEntrada?.jsonBody ?? '').toString()}';
+                                      'Dirija-se à entrada: ${EntradaStruct.maybeFromMap((_model.getEntrada?.jsonBody ?? ''))?.descricao}';
                                 });
                                 if (_shouldSetState) safeSetState(() {});
                                 return;

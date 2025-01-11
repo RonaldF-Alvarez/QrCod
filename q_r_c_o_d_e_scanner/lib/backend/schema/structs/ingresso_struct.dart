@@ -9,20 +9,20 @@ class IngressoStruct extends BaseStruct {
   IngressoStruct({
     int? idIngresso,
     String? codigo,
-    int? idEntrada,
     String? datahoraEntrada,
     String? processado,
     String? validadorIngresso,
     String? ingressogerado,
     String? diaingresso,
+    int? idEntrada,
   })  : _idIngresso = idIngresso,
         _codigo = codigo,
-        _idEntrada = idEntrada,
         _datahoraEntrada = datahoraEntrada,
         _processado = processado,
         _validadorIngresso = validadorIngresso,
         _ingressogerado = ingressogerado,
-        _diaingresso = diaingresso;
+        _diaingresso = diaingresso,
+        _idEntrada = idEntrada;
 
   // "idIngresso" field.
   int? _idIngresso;
@@ -39,15 +39,6 @@ class IngressoStruct extends BaseStruct {
   set codigo(String? val) => _codigo = val;
 
   bool hasCodigo() => _codigo != null;
-
-  // "idEntrada" field.
-  int? _idEntrada;
-  int get idEntrada => _idEntrada ?? 0;
-  set idEntrada(int? val) => _idEntrada = val;
-
-  void incrementIdEntrada(int amount) => idEntrada = idEntrada + amount;
-
-  bool hasIdEntrada() => _idEntrada != null;
 
   // "datahoraEntrada" field.
   String? _datahoraEntrada;
@@ -84,15 +75,24 @@ class IngressoStruct extends BaseStruct {
 
   bool hasDiaingresso() => _diaingresso != null;
 
+  // "idEntrada" field.
+  int? _idEntrada;
+  int get idEntrada => _idEntrada ?? 0;
+  set idEntrada(int? val) => _idEntrada = val;
+
+  void incrementIdEntrada(int amount) => idEntrada = idEntrada + amount;
+
+  bool hasIdEntrada() => _idEntrada != null;
+
   static IngressoStruct fromMap(Map<String, dynamic> data) => IngressoStruct(
         idIngresso: castToType<int>(data['idIngresso']),
         codigo: data['codigo'] as String?,
-        idEntrada: castToType<int>(data['idEntrada']),
         datahoraEntrada: data['datahoraEntrada'] as String?,
         processado: data['processado'] as String?,
         validadorIngresso: data['validadorIngresso'] as String?,
         ingressogerado: data['ingressogerado'] as String?,
         diaingresso: data['diaingresso'] as String?,
+        idEntrada: castToType<int>(data['idEntrada']),
       );
 
   static IngressoStruct? maybeFromMap(dynamic data) =>
@@ -101,12 +101,12 @@ class IngressoStruct extends BaseStruct {
   Map<String, dynamic> toMap() => {
         'idIngresso': _idIngresso,
         'codigo': _codigo,
-        'idEntrada': _idEntrada,
         'datahoraEntrada': _datahoraEntrada,
         'processado': _processado,
         'validadorIngresso': _validadorIngresso,
         'ingressogerado': _ingressogerado,
         'diaingresso': _diaingresso,
+        'idEntrada': _idEntrada,
       }.withoutNulls;
 
   @override
@@ -118,10 +118,6 @@ class IngressoStruct extends BaseStruct {
         'codigo': serializeParam(
           _codigo,
           ParamType.String,
-        ),
-        'idEntrada': serializeParam(
-          _idEntrada,
-          ParamType.int,
         ),
         'datahoraEntrada': serializeParam(
           _datahoraEntrada,
@@ -143,6 +139,10 @@ class IngressoStruct extends BaseStruct {
           _diaingresso,
           ParamType.String,
         ),
+        'idEntrada': serializeParam(
+          _idEntrada,
+          ParamType.int,
+        ),
       }.withoutNulls;
 
   static IngressoStruct fromSerializableMap(Map<String, dynamic> data) =>
@@ -155,11 +155,6 @@ class IngressoStruct extends BaseStruct {
         codigo: deserializeParam(
           data['codigo'],
           ParamType.String,
-          false,
-        ),
-        idEntrada: deserializeParam(
-          data['idEntrada'],
-          ParamType.int,
           false,
         ),
         datahoraEntrada: deserializeParam(
@@ -187,6 +182,11 @@ class IngressoStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
+        idEntrada: deserializeParam(
+          data['idEntrada'],
+          ParamType.int,
+          false,
+        ),
       );
 
   @override
@@ -197,44 +197,44 @@ class IngressoStruct extends BaseStruct {
     return other is IngressoStruct &&
         idIngresso == other.idIngresso &&
         codigo == other.codigo &&
-        idEntrada == other.idEntrada &&
         datahoraEntrada == other.datahoraEntrada &&
         processado == other.processado &&
         validadorIngresso == other.validadorIngresso &&
         ingressogerado == other.ingressogerado &&
-        diaingresso == other.diaingresso;
+        diaingresso == other.diaingresso &&
+        idEntrada == other.idEntrada;
   }
 
   @override
   int get hashCode => const ListEquality().hash([
         idIngresso,
         codigo,
-        idEntrada,
         datahoraEntrada,
         processado,
         validadorIngresso,
         ingressogerado,
-        diaingresso
+        diaingresso,
+        idEntrada
       ]);
 }
 
 IngressoStruct createIngressoStruct({
   int? idIngresso,
   String? codigo,
-  int? idEntrada,
   String? datahoraEntrada,
   String? processado,
   String? validadorIngresso,
   String? ingressogerado,
   String? diaingresso,
+  int? idEntrada,
 }) =>
     IngressoStruct(
       idIngresso: idIngresso,
       codigo: codigo,
-      idEntrada: idEntrada,
       datahoraEntrada: datahoraEntrada,
       processado: processado,
       validadorIngresso: validadorIngresso,
       ingressogerado: ingressogerado,
       diaingresso: diaingresso,
+      idEntrada: idEntrada,
     );

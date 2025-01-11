@@ -265,6 +265,25 @@ class _AllTicketEntradasWidgetState extends State<AllTicketEntradasWidget> {
                       child: FFButtonWidget(
                         onPressed: () async {
                           context.pushNamed('AllTicketValidacao');
+
+                          _model.colEntr =
+                              await APIAllVipGroup.getEntradasCall.call(
+                            idcoletorentradas: FFAppState().idColetor,
+                            api: FFAppState().ipadress,
+                          );
+
+                          FFAppState().idEntrad =
+                              ((_model.colEntr?.jsonBody ?? '')
+                                      .toList()
+                                      .map<EntradasStruct?>(
+                                          EntradasStruct.maybeFromMap)
+                                      .toList() as Iterable<EntradasStruct?>)
+                                  .withoutNulls
+                                  .firstOrNull!
+                                  .idEntrada;
+                          safeSetState(() {});
+
+                          safeSetState(() {});
                         },
                         text: 'Definir entrada',
                         options: FFButtonOptions(
