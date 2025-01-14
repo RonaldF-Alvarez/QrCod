@@ -4,7 +4,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/backend/schema/structs/index.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'all_ticket_connection_model.dart';
@@ -32,6 +34,16 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AllTicketConnectionModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.deviceName = await actions.getDevice();
+      FFAppState().deviceInfo = _model.deviceName!;
+      safeSetState(() {});
+      safeSetState(() {
+        _model.textColetorTextController?.text = FFAppState().deviceInfo;
+      });
+    });
 
     _model.textFieldDigitarSerialTextController ??= TextEditingController();
     _model.textFieldDigitarSerialFocusNode ??= FocusNode();
@@ -394,74 +406,102 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                     child: FFButtonWidget(
                       onPressed: () async {
                         var _shouldSetState = false;
-                        _model.apiAllVipResult =
-                            await APIAllVipGroup.postGerarTokenCall.call(
-                          api: _model.textFieldDigitarSerialTextController.text,
-                        );
-
-                        _shouldSetState = true;
-                        if ((_model.apiAllVipResult?.statusCode ?? 200) ==
-                            200) {
-                          FFAppState().ipadress =
-                              _model.textFieldDigitarSerialTextController.text;
-                          safeSetState(() {});
-                          FFAppState().coletor =
-                              _model.textColetorTextController.text;
-                          safeSetState(() {});
-                          _model.resultColetor =
-                              await APIAllVipGroup.getColetorCall.call(
-                            api: FFAppState().ipadress,
-                            codColetor: FFAppState().coletor,
+                        if ((_model.textFieldDigitarSerialTextController.text !=
+                                '') &&
+                            (_model.textColetorTextController.text != '')) {
+                          _model.apiAllVipResult =
+                              await APIAllVipGroup.postGerarTokenCall.call(
+                            api: _model
+                                .textFieldDigitarSerialTextController.text,
                           );
 
                           _shouldSetState = true;
-                          if ((_model.resultColetor?.succeeded ?? true)) {
-                            FFAppState().idColetor = ColetorStruct.maybeFromMap(
-                                    (_model.resultColetor?.jsonBody ?? ''))!
-                                .idColetor;
+                          if ((_model.apiAllVipResult?.statusCode ?? 200) ==
+                              200) {
+                            FFAppState().ipadress = _model
+                                .textFieldDigitarSerialTextController.text;
                             safeSetState(() {});
-                          } else {
-                            _model.apiResulttuv =
-                                await APIAllVipGroup.postInsereColetorCall.call(
+                            FFAppState().coletor =
+                                _model.textColetorTextController.text;
+                            safeSetState(() {});
+                            _model.resultColetor =
+                                await APIAllVipGroup.getColetorCall.call(
                               api: FFAppState().ipadress,
                               codColetor: FFAppState().coletor,
                             );
 
                             _shouldSetState = true;
-                            if ((_model.apiResulttuv?.succeeded ?? true)) {
-                              _model.resultColetor2 =
-                                  await APIAllVipGroup.getColetorCall.call(
+                            if ((_model.resultColetor?.succeeded ?? true)) {
+                              FFAppState()
+                                  .idColetor = ColetorStruct.maybeFromMap(
+                                      (_model.resultColetor?.jsonBody ?? ''))!
+                                  .idColetor;
+                              safeSetState(() {});
+                            } else {
+                              _model.apiResulttuv = await APIAllVipGroup
+                                  .postInsereColetorCall
+                                  .call(
                                 api: FFAppState().ipadress,
                                 codColetor: FFAppState().coletor,
                               );
 
                               _shouldSetState = true;
-                              if ((_model.resultColetor2?.succeeded ?? true)) {
-                                FFAppState().idColetor =
-                                    ColetorStruct.maybeFromMap(
-                                            (_model.resultColetor2?.jsonBody ??
-                                                ''))!
-                                        .idColetor;
-                                safeSetState(() {});
+                              if ((_model.apiResulttuv?.succeeded ?? true)) {
+                                _model.resultColetor2 =
+                                    await APIAllVipGroup.getColetorCall.call(
+                                  api: FFAppState().ipadress,
+                                  codColetor: FFAppState().coletor,
+                                );
+
+                                _shouldSetState = true;
+                                if ((_model.resultColetor2?.succeeded ??
+                                    true)) {
+                                  FFAppState().idColetor =
+                                      ColetorStruct.maybeFromMap((_model
+                                                  .resultColetor2?.jsonBody ??
+                                              ''))!
+                                          .idColetor;
+                                  safeSetState(() {});
+                                } else {
+                                  if (_shouldSetState) safeSetState(() {});
+                                  return;
+                                }
                               } else {
                                 if (_shouldSetState) safeSetState(() {});
                                 return;
                               }
-                            } else {
-                              if (_shouldSetState) safeSetState(() {});
-                              return;
                             }
-                          }
 
-                          context.pushNamed('AllTicketEntradas');
+                            context.pushNamed('AllTicketEntradas');
+                          } else {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text('Erro'),
+                                  content: Text(
+                                      '${_model.textFieldDigitarSerialTextController.text} não encontrado'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                            if (_shouldSetState) safeSetState(() {});
+                            return;
+                          }
                         } else {
                           await showDialog(
                             context: context,
                             builder: (alertDialogContext) {
                               return AlertDialog(
-                                title: Text('Erro'),
+                                title: Text('Erro ao Conectar'),
                                 content: Text(
-                                    '${_model.textFieldDigitarSerialTextController.text} não encontrado'),
+                                    'Por favor, confira os dados e tente novamente!'),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>

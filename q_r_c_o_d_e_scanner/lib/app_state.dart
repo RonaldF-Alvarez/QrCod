@@ -82,4 +82,10 @@ class FFAppState extends ChangeNotifier {
   set idEntrad(int value) {
     _idEntrad = value;
   }
+
+  String _deviceInfo = '';
+  String get deviceInfo => _deviceInfo;
+  set deviceInfo(String value) {
+    _deviceInfo = value;
+  }
 }
