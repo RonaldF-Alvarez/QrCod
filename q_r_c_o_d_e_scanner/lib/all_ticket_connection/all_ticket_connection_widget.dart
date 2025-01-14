@@ -408,7 +408,9 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                         var _shouldSetState = false;
                         if ((_model.textFieldDigitarSerialTextController.text !=
                                 '') &&
-                            (_model.textColetorTextController.text != '')) {
+                            (_model.textColetorTextController.text != '') &&
+                            (_model.textColetorTextController.text !=
+                                'Erro ao acessar o nome do aparelho')) {
                           _model.apiAllVipResult =
                               await APIAllVipGroup.postGerarTokenCall.call(
                             api: _model
@@ -499,9 +501,8 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                             context: context,
                             builder: (alertDialogContext) {
                               return AlertDialog(
-                                title: Text('Erro ao Conectar'),
-                                content: Text(
-                                    'Por favor, confira os dados e tente novamente!'),
+                                title: Text('Verifique os dados!'),
+                                content: Text('Verifique o IP e o Coletor.'),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>

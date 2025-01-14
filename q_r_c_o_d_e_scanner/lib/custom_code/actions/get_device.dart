@@ -17,6 +17,7 @@ Future<String> getDevice() async {
     //String deviceName = 'teste Nome';
     return '$deviceName';
   } catch (e) {
-    return 'Error fetching device info: $e';
+    //return 'Error fetching device info: $e';
+    return 'Erro ao acessar o nome do aparelho';
   }
 }

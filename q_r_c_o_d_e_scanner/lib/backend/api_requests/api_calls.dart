@@ -45,7 +45,7 @@ class PostGerarTokenCall {
 
     final ffApiRequestBody = '''
 {
-  "ipporta": "localhost:5000"
+  "ipporta": "${escapeStringForJson(api)}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'PostGerarToken',
