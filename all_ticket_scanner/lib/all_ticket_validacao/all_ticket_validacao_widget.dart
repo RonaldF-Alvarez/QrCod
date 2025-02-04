@@ -265,7 +265,7 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                                 fontFamily: 'Inter',
                                 letterSpacing: 0.0,
                               ),
-                      hintText: 'Número da entrada',
+                      hintText: 'Digitar Código',
                       hintStyle:
                           FlutterFlowTheme.of(context).labelMedium.override(
                                 fontFamily: 'Inter',
@@ -524,22 +524,8 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                                 safeSetState(() {
                                   _model.textFieldATextController?.clear();
                                 });
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text('Verificado!'),
-                                      content: Text('BEM-VINDO!'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
+                                await Future.delayed(
+                                    const Duration(milliseconds: 3000));
                                 safeSetState(() {
                                   _model.textFieldTelaTextController?.text =
                                       'AGUARDANDO LEITURA!';
@@ -573,23 +559,11 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                                   _model.textFieldTelaTextController?.text =
                                       'Dirija-se à entrada: ${EntradaStruct.maybeFromMap((_model.getEntrada?.jsonBody ?? ''))?.descricao}';
                                 });
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text('Erro!'),
-                                      content: Text(
-                                          'Dirija-se à entrada: ${EntradaStruct.maybeFromMap((_model.getEntrada?.jsonBody ?? ''))?.descricao}'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
+                                safeSetState(() {
+                                  _model.textFieldATextController?.clear();
+                                });
+                                await Future.delayed(
+                                    const Duration(milliseconds: 3000));
                                 safeSetState(() {
                                   _model.textFieldTelaTextController?.text =
                                       'AGUARDANDO LEITURA!';
@@ -616,23 +590,11 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                               _model.textFieldTelaTextController?.text =
                                   'INGRESSO JÁ VALIDADO:${FFAppState().DataHoraIngresso}';
                             });
-                            await showDialog(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: Text('Erro!'),
-                                  content: Text(
-                                      'INGRESSO JÁ VALIDADO:${FFAppState().DataHoraIngresso}'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
+                            safeSetState(() {
+                              _model.textFieldATextController?.clear();
+                            });
+                            await Future.delayed(
+                                const Duration(milliseconds: 3000));
                             safeSetState(() {
                               _model.textFieldTelaTextController?.text =
                                   'AGUARDANDO LEITURA!';
@@ -655,24 +617,11 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                             _model.textFieldTelaTextController?.text =
                                 'INGRESSO INVÁLIDO!';
                           });
-                          await showDialog(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return AlertDialog(
-                                title: Text('Erro'),
-                                content: Text(APIErrorStruct.maybeFromMap(
-                                        (_model.apiResultv1h?.jsonBody ?? ''))!
-                                    .result),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: Text('Ok'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
+                          safeSetState(() {
+                            _model.textFieldATextController?.clear();
+                          });
+                          await Future.delayed(
+                              const Duration(milliseconds: 3000));
                           safeSetState(() {
                             _model.textFieldTelaTextController?.text =
                                 'AGUARDANDO LEITURA!';
@@ -715,18 +664,6 @@ class _AllTicketValidacaoWidgetState extends State<AllTicketValidacaoWidget> {
                     ),
                   ),
                 ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
-              child: Text(
-                'Validando todas as entradas',
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Inter',
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      fontSize: 16.0,
-                      letterSpacing: 0.0,
-                    ),
               ),
             ),
             Padding(

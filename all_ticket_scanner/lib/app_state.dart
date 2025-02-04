@@ -124,6 +124,12 @@ class FFAppState extends ChangeNotifier {
     _ColState = value;
     prefs.setString('ff_ColState', value);
   }
+
+  int _tipoValidacao = 0;
+  int get tipoValidacao => _tipoValidacao;
+  set tipoValidacao(int value) {
+    _tipoValidacao = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

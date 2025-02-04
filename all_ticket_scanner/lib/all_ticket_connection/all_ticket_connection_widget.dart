@@ -109,14 +109,14 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                       labelStyle:
                           FlutterFlowTheme.of(context).labelMedium.override(
                                 fontFamily: 'Inter',
+                                color: FlutterFlowTheme.of(context).alternate,
                                 letterSpacing: 0.0,
                               ),
                       hintText: 'Digite  Serial ou IP.....',
                       hintStyle:
                           FlutterFlowTheme.of(context).labelMedium.override(
                                 fontFamily: 'Inter',
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: FlutterFlowTheme.of(context).alternate,
                                 letterSpacing: 0.0,
                               ),
                       enabledBorder: UnderlineInputBorder(
@@ -152,6 +152,7 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Inter',
+                          color: FlutterFlowTheme.of(context).alternate,
                           fontSize: 14.0,
                           letterSpacing: 0.0,
                         ),
@@ -166,68 +167,41 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
               Flexible(
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(38.0, 50.0, 38.0, 0.0),
+                      EdgeInsetsDirectional.fromSTEB(38.0, 32.0, 38.0, 0.0),
                   child: Container(
                     width: double.infinity,
-                    height: 100.0,
-                    decoration: BoxDecoration(),
+                    height: 150.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      border: Border.all(
+                        color: FlutterFlowTheme.of(context).warning,
+                      ),
+                    ),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Theme(
-                                data: ThemeData(
-                                  checkboxTheme: CheckboxThemeData(
-                                    visualDensity: VisualDensity.compact,
-                                    materialTapTargetSize:
-                                        MaterialTapTargetSize.shrinkWrap,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                  ),
-                                  unselectedWidgetColor:
-                                      FlutterFlowTheme.of(context).alternate,
-                                ),
-                                child: Checkbox(
-                                  value: _model.checkboxValue1 ??= true,
-                                  onChanged: (newValue) async {
-                                    safeSetState(() =>
-                                        _model.checkboxValue1 = newValue!);
-                                  },
-                                  side: BorderSide(
-                                    width: 2,
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                  ),
-                                  activeColor:
-                                      FlutterFlowTheme.of(context).warning,
-                                  checkColor: FlutterFlowTheme.of(context).info,
-                                ),
-                              ),
-                              Text(
-                                'Servidor Local (IP + Rota)',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      letterSpacing: 0.0,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Row(
+                        Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Conexão',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        fontSize: 18.0,
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ].divide(SizedBox(width: 16.0)),
+                            ),
                             Align(
                               alignment: AlignmentDirectional(0.0, 0.0),
                               child: Row(
@@ -250,13 +224,16 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                                               .alternate,
                                     ),
                                     child: Checkbox(
-                                      value: _model.checkboxValue2 ??= false,
-                                      onChanged: (_model.desativ == false)
-                                          ? null
-                                          : (newValue) async {
-                                              safeSetState(() => _model
-                                                  .checkboxValue2 = newValue!);
-                                            },
+                                      value: _model.checkboxAValue ??= true,
+                                      onChanged: (newValue) async {
+                                        safeSetState(() =>
+                                            _model.checkboxAValue = newValue!);
+                                        if (newValue!) {
+                                          safeSetState(() {
+                                            _model.checkboxBValue = false;
+                                          });
+                                        }
+                                      },
                                       side: BorderSide(
                                         width: 2,
                                         color: FlutterFlowTheme.of(context)
@@ -264,27 +241,96 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                                       ),
                                       activeColor:
                                           FlutterFlowTheme.of(context).warning,
-                                      checkColor: (_model.desativ == false)
-                                          ? null
-                                          : FlutterFlowTheme.of(context).info,
+                                      checkColor:
+                                          FlutterFlowTheme.of(context).info,
                                     ),
                                   ),
-                                  Opacity(
-                                    opacity: 0.5,
-                                    child: Text(
-                                      'Servidor On-line (serial)   ',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
+                                  Text(
+                                    'Servidor Local (IP + Rota)',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          letterSpacing: 0.0,
+                                        ),
                                   ),
                                 ],
                               ),
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Align(
+                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Theme(
+                                        data: ThemeData(
+                                          checkboxTheme: CheckboxThemeData(
+                                            visualDensity:
+                                                VisualDensity.compact,
+                                            materialTapTargetSize:
+                                                MaterialTapTargetSize
+                                                    .shrinkWrap,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                          ),
+                                          unselectedWidgetColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .alternate,
+                                        ),
+                                        child: Checkbox(
+                                          value: _model.checkboxBValue ??=
+                                              false,
+                                          onChanged: (_model.desativ == false)
+                                              ? null
+                                              : (newValue) async {
+                                                  safeSetState(() =>
+                                                      _model.checkboxBValue =
+                                                          newValue!);
+                                                  if (newValue!) {
+                                                    safeSetState(() {
+                                                      _model.checkboxAValue =
+                                                          false;
+                                                    });
+                                                  }
+                                                },
+                                          side: BorderSide(
+                                            width: 2,
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                          ),
+                                          activeColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .warning,
+                                          checkColor: (_model.desativ == false)
+                                              ? null
+                                              : FlutterFlowTheme.of(context)
+                                                  .info,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Text(
+                                  'Servidor On-line (serial)   ',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -292,6 +338,152 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                     ),
                   ),
                 ),
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Validação',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              fontSize: 18.0,
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                    ].divide(SizedBox(width: 16.0)),
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional(0.0, 0.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Theme(
+                          data: ThemeData(
+                            checkboxTheme: CheckboxThemeData(
+                              visualDensity: VisualDensity.compact,
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                            ),
+                            unselectedWidgetColor:
+                                FlutterFlowTheme.of(context).alternate,
+                          ),
+                          child: Checkbox(
+                            value: _model.checkboxCValue ??= true,
+                            onChanged: (newValue) async {
+                              safeSetState(
+                                  () => _model.checkboxCValue = newValue!);
+                              if (newValue!) {
+                                safeSetState(() {
+                                  _model.checkboxDValue = false;
+                                });
+                                FFAppState().tipoValidacao = 1;
+                                safeSetState(() {});
+                              } else {
+                                FFAppState().tipoValidacao = 0;
+                                safeSetState(() {});
+                                safeSetState(() {
+                                  _model.checkboxDValue = true;
+                                });
+                              }
+                            },
+                            side: BorderSide(
+                              width: 2,
+                              color: FlutterFlowTheme.of(context).alternate,
+                            ),
+                            activeColor: FlutterFlowTheme.of(context).warning,
+                            checkColor: FlutterFlowTheme.of(context).info,
+                          ),
+                        ),
+                        Text(
+                          'AllTicket',
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: 'Inter',
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                letterSpacing: 0.0,
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(0.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Theme(
+                              data: ThemeData(
+                                checkboxTheme: CheckboxThemeData(
+                                  visualDensity: VisualDensity.compact,
+                                  materialTapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                ),
+                                unselectedWidgetColor:
+                                    FlutterFlowTheme.of(context).alternate,
+                              ),
+                              child: Checkbox(
+                                value: _model.checkboxDValue ??= false,
+                                onChanged: (newValue) async {
+                                  safeSetState(
+                                      () => _model.checkboxDValue = newValue!);
+                                  if (newValue!) {
+                                    safeSetState(() {
+                                      _model.checkboxCValue = false;
+                                    });
+                                    FFAppState().tipoValidacao = 0;
+                                    safeSetState(() {});
+                                  } else {
+                                    FFAppState().tipoValidacao = 1;
+                                    safeSetState(() {});
+                                    safeSetState(() {
+                                      _model.checkboxCValue = true;
+                                    });
+                                  }
+                                },
+                                side: BorderSide(
+                                  width: 2,
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                ),
+                                activeColor:
+                                    FlutterFlowTheme.of(context).warning,
+                                checkColor: FlutterFlowTheme.of(context).info,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Text(
+                        'AllVip     ',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
               Flexible(
                 child: Align(
@@ -353,21 +545,21 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                         decoration: InputDecoration(
                           isDense: true,
                           labelText: ' ',
-                          labelStyle:
-                              FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Inter',
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    letterSpacing: 0.0,
-                                  ),
+                          labelStyle: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .override(
+                                fontFamily: 'Inter',
+                                color: FlutterFlowTheme.of(context).alternate,
+                                letterSpacing: 0.0,
+                              ),
                           hintText: 'Nome do Coletor',
-                          hintStyle:
-                              FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Inter',
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    letterSpacing: 0.0,
-                                  ),
+                          hintStyle: FlutterFlowTheme.of(context)
+                              .labelMedium
+                              .override(
+                                fontFamily: 'Inter',
+                                color: FlutterFlowTheme.of(context).alternate,
+                                letterSpacing: 0.0,
+                              ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: FlutterFlowTheme.of(context).warning,
@@ -401,8 +593,7 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
+                              color: FlutterFlowTheme.of(context).alternate,
                               fontSize: 14.0,
                               letterSpacing: 0.0,
                             ),
@@ -504,8 +695,11 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                             FFAppState().ColState =
                                 _model.textColetorTextController.text;
                             safeSetState(() {});
-
-                            context.pushNamed('AllTicketEntradas');
+                            if (FFAppState().tipoValidacao == 1) {
+                              context.pushNamed('AllTicketEntradas');
+                            } else {
+                              context.pushNamed('AllTicketValidacao');
+                            }
                           } else {
                             await showDialog(
                               context: context,
@@ -578,7 +772,7 @@ class _AllTicketConnectionWidgetState extends State<AllTicketConnectionWidget> {
                   ),
                 ),
               ),
-            ],
+            ].divide(SizedBox(height: 16.0)),
           ),
         ),
       ),

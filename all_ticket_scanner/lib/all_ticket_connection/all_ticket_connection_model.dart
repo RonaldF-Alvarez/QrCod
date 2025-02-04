@@ -18,6 +18,8 @@ class AllTicketConnectionModel
 
   bool desativ = false;
 
+  int? validaindex = 1;
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for TextFieldDigitarSerial widget.
@@ -25,10 +27,14 @@ class AllTicketConnectionModel
   TextEditingController? textFieldDigitarSerialTextController;
   String? Function(BuildContext, String?)?
       textFieldDigitarSerialTextControllerValidator;
-  // State field(s) for Checkbox widget.
-  bool? checkboxValue1;
-  // State field(s) for Checkbox widget.
-  bool? checkboxValue2;
+  // State field(s) for CheckboxA widget.
+  bool? checkboxAValue;
+  // State field(s) for CheckboxB widget.
+  bool? checkboxBValue;
+  // State field(s) for CheckboxC widget.
+  bool? checkboxCValue;
+  // State field(s) for CheckboxD widget.
+  bool? checkboxDValue;
   // State field(s) for SwitchListTile widget.
   bool? switchListTileValue;
   // State field(s) for TextColetor widget.
