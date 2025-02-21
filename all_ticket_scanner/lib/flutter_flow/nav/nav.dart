@@ -7,13 +7,14 @@ import 'package:provider/provider.dart';
 
 import '/backend/schema/structs/index.dart';
 
-import '/index.dart';
 import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/lat_lng.dart';
 import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'serialization_util.dart';
+
+import '/index.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -69,28 +70,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               : AllTicketConnectionWidget(),
         ),
         FFRoute(
-          name: 'TelaCadastro',
-          path: '/telaCadastro',
+          name: TelaCadastroWidget.routeName,
+          path: TelaCadastroWidget.routePath,
           builder: (context, params) => TelaCadastroWidget(),
         ),
         FFRoute(
-          name: 'TeladeLogin',
-          path: '/teladeLogin',
+          name: TeladeLoginWidget.routeName,
+          path: TeladeLoginWidget.routePath,
           builder: (context, params) => TeladeLoginWidget(),
         ),
         FFRoute(
-          name: 'AllTicketValidacao',
-          path: '/allTicketValidacao',
+          name: AllTicketValidacaoWidget.routeName,
+          path: AllTicketValidacaoWidget.routePath,
           builder: (context, params) => AllTicketValidacaoWidget(),
         ),
         FFRoute(
-          name: 'AllTicketEntradas',
-          path: '/allTicketEntradas',
+          name: AllTicketEntradasWidget.routeName,
+          path: AllTicketEntradasWidget.routePath,
           builder: (context, params) => AllTicketEntradasWidget(),
         ),
         FFRoute(
-          name: 'AllTicketConnection',
-          path: '/allTicketConnection',
+          name: AllTicketConnectionWidget.routeName,
+          path: AllTicketConnectionWidget.routePath,
           builder: (context, params) => AllTicketConnectionWidget(
             teste: params.getParam(
               'teste',

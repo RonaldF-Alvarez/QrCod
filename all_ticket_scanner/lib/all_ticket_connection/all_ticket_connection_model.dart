@@ -4,6 +4,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/backend/schema/structs/index.dart';
+import '/custom_code/actions/index.dart' as actions;
+import '/index.dart';
 import 'all_ticket_connection_widget.dart' show AllTicketConnectionWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -22,6 +24,8 @@ class AllTicketConnectionModel
 
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Custom Action - getDevice] action in AllTicketConnection widget.
+  String? deviceName;
   // State field(s) for TextFieldDigitarSerial widget.
   FocusNode? textFieldDigitarSerialFocusNode;
   TextEditingController? textFieldDigitarSerialTextController;

@@ -6,6 +6,8 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/backend/schema/structs/index.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'all_ticket_validacao_widget.dart' show AllTicketValidacaoWidget;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +28,8 @@ class AllTicketValidacaoModel
   Color ingressovalidado = Color(4291546059);
 
   Color? ingressoanterior = Color(4291546059);
+
+  Color? textovalidacao = Color(4279506971);
 
   ///  State fields for stateful widgets in this page.
 
@@ -48,10 +52,14 @@ class AllTicketValidacaoModel
   ApiCallResponse? apiResultv1h;
   // Stores action output result for [Backend Call - API (GetColetorXEntradas)] action in Button widget.
   ApiCallResponse? colXEntradas;
-  // Stores action output result for [Backend Call - API (PutAtualizaIngressoValido)] action in Button widget.
-  ApiCallResponse? apiResulto3c;
   // Stores action output result for [Backend Call - API (GetEntrada)] action in Button widget.
   ApiCallResponse? getEntrada;
+  // Stores action output result for [Backend Call - API (PutAtualizaIngressoValido)] action in Button widget.
+  ApiCallResponse? apiResulto3c;
+  // Stores action output result for [Backend Call - API (GetClientesCodigo)] action in Button widget.
+  ApiCallResponse? clienteCodigo;
+  // Stores action output result for [Backend Call - API (PostInsereClientePassagem)] action in Button widget.
+  ApiCallResponse? apiResult5cl;
   // State field(s) for TextFieldZ widget.
   FocusNode? textFieldZFocusNode;
   TextEditingController? textFieldZTextController;

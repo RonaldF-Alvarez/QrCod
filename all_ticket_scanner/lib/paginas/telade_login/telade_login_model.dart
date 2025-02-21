@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
 import 'dart:ui';
+import '/index.dart';
 import 'telade_login_widget.dart' show TeladeLoginWidget;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

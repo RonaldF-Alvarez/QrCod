@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import '/index.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,6 +12,9 @@ export 'tela_cadastro_model.dart';
 
 class TelaCadastroWidget extends StatefulWidget {
   const TelaCadastroWidget({super.key});
+
+  static String routeName = 'TelaCadastro';
+  static String routePath = '/telaCadastro';
 
   @override
   State<TelaCadastroWidget> createState() => _TelaCadastroWidgetState();
@@ -699,7 +703,7 @@ class _TelaCadastroWidgetState extends State<TelaCadastroWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed('TeladeLogin');
+                                context.pushNamed(TeladeLoginWidget.routeName);
                               },
                               child: RichText(
                                 textScaler: MediaQuery.of(context).textScaler,

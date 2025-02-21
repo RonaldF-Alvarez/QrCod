@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:math';
 import 'dart:ui';
+import '/index.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -15,6 +16,9 @@ export 'telade_login_model.dart';
 
 class TeladeLoginWidget extends StatefulWidget {
   const TeladeLoginWidget({super.key});
+
+  static String routeName = 'TeladeLogin';
+  static String routePath = '/teladeLogin';
 
   @override
   State<TeladeLoginWidget> createState() => _TeladeLoginWidgetState();
@@ -483,7 +487,8 @@ class _TeladeLoginWidgetState extends State<TeladeLoginWidget>
                                         child: FFButtonWidget(
                                           onPressed: () async {
                                             context.pushNamed(
-                                                'AllTicketValidacao');
+                                                AllTicketValidacaoWidget
+                                                    .routeName);
                                           },
                                           text: 'Entrar',
                                           options: FFButtonOptions(
@@ -529,7 +534,8 @@ class _TeladeLoginWidgetState extends State<TeladeLoginWidget>
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            context.pushNamed('TelaCadastro');
+                                            context.pushNamed(
+                                                TelaCadastroWidget.routeName);
                                           },
                                           child: RichText(
                                             textScaler: MediaQuery.of(context)
@@ -550,7 +556,8 @@ class _TeladeLoginWidgetState extends State<TeladeLoginWidget>
                                                       TapGestureRecognizer()
                                                         ..onTap = () async {
                                                           context.pushNamed(
-                                                              'TelaCadastro');
+                                                              TelaCadastroWidget
+                                                                  .routeName);
                                                         },
                                                 ),
                                                 TextSpan(
@@ -575,7 +582,8 @@ class _TeladeLoginWidgetState extends State<TeladeLoginWidget>
                                                       TapGestureRecognizer()
                                                         ..onTap = () async {
                                                           context.pushNamed(
-                                                              'TelaCadastro');
+                                                              TelaCadastroWidget
+                                                                  .routeName);
                                                         },
                                                 )
                                               ],

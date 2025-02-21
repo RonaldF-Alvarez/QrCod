@@ -33,6 +33,9 @@ class APIAllVipGroup {
       PostInserteColetorxEntradaCall();
   static DeleteColetorxEntradasCall deleteColetorxEntradasCall =
       DeleteColetorxEntradasCall();
+  static GetClientesCodigoCall getClientesCodigoCall = GetClientesCodigoCall();
+  static PostInsereClientePassagemCall postInsereClientePassagemCall =
+      PostInsereClientePassagemCall();
 }
 
 class PostGerarTokenCall {
@@ -307,6 +310,66 @@ class DeleteColetorxEntradasCall {
       callType: ApiCallType.DELETE,
       headers: {},
       params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetClientesCodigoCall {
+  Future<ApiCallResponse> call({
+    String? codigo = '',
+    String? api = '',
+  }) async {
+    final baseUrl = APIAllVipGroup.getBaseUrl(
+      api: api,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'GetClientesCodigo',
+      apiUrl: '${baseUrl}/GetClientesCodigo/${codigo}',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class PostInsereClientePassagemCall {
+  Future<ApiCallResponse> call({
+    int? clienteId,
+    String? clienteid = '',
+    String? id = '',
+    String? api = '',
+  }) async {
+    final baseUrl = APIAllVipGroup.getBaseUrl(
+      api: api,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "CLIENTE_ID": ${clienteId},
+  "CLIENTEID": "${escapeStringForJson(clienteid)}",
+  "ID": "${escapeStringForJson(id)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'PostInsereClientePassagem',
+      apiUrl: '${baseUrl}/PostInsereClientePassagem',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

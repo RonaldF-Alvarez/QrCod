@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +14,9 @@ export 'all_ticket_entradas_model.dart';
 
 class AllTicketEntradasWidget extends StatefulWidget {
   const AllTicketEntradasWidget({super.key});
+
+  static String routeName = 'AllTicketEntradas';
+  static String routePath = '/allTicketEntradas';
 
   @override
   State<AllTicketEntradasWidget> createState() =>
@@ -157,6 +161,7 @@ class _AllTicketEntradasWidgetState extends State<AllTicketEntradasWidget> {
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
+                                borderRadius: BorderRadius.circular(8.0),
                               ),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
@@ -267,7 +272,7 @@ class _AllTicketEntradasWidgetState extends State<AllTicketEntradasWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          context.pushNamed('AllTicketValidacao');
+                          context.pushNamed(AllTicketValidacaoWidget.routeName);
 
                           _model.colEntr =
                               await APIAllVipGroup.getEntradasCall.call(
