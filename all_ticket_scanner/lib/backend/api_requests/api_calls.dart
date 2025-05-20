@@ -122,6 +122,7 @@ class PutAtualizaIngressoValidoCall {
   Future<ApiCallResponse> call({
     String? idIngresso = '',
     String? dataHoraValidaIngresso = '',
+    int? idColetor,
     String? api = '',
   }) async {
     final baseUrl = APIAllVipGroup.getBaseUrl(
@@ -130,7 +131,8 @@ class PutAtualizaIngressoValidoCall {
 
     final ffApiRequestBody = '''
 {
-  "DataHoraValidaIngresso": "${escapeStringForJson(dataHoraValidaIngresso)}"
+  "DataHoraValidaIngresso": "${escapeStringForJson(dataHoraValidaIngresso)}",
+  "IdColetor": ${idColetor}
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'PutAtualizaIngressoValido',

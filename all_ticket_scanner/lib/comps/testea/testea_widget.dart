@@ -82,11 +82,15 @@ class _TesteaWidgetState extends State<TesteaWidget> {
           iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
           color: Color(0xFFDF7D1D),
           textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                fontFamily: 'Inter',
+                font: GoogleFonts.inter(
+                  fontWeight: FontWeight.normal,
+                  fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                ),
                 color: Colors.white,
                 fontSize: 20.0,
                 letterSpacing: 0.0,
                 fontWeight: FontWeight.normal,
+                fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
               ),
           elevation: 2.0,
           borderSide: BorderSide(

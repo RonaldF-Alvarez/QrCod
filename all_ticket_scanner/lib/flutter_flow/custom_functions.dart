@@ -20,8 +20,8 @@ String? formatarDataHora(String? dataOriginal) {
     DateTime dataHora = DateTime.parse(dataOriginal);
 
     // Formatar data e hora
-    String dataFormatada = DateFormat('dd-MM-yyyy').format(dataHora);
-    String horaFormatada = DateFormat('HH:mm:ss.SSS').format(dataHora);
+    String dataFormatada = DateFormat('dd/MM/yyyy').format(dataHora);
+    String horaFormatada = DateFormat('HH:mm:ss').format(dataHora);
 
     return '$dataFormatada $horaFormatada'; // Retorna a data formatada
   } catch (e) {

@@ -130,6 +130,35 @@ class FFAppState extends ChangeNotifier {
   set tipoValidacao(int value) {
     _tipoValidacao = value;
   }
+
+  List<String> _listingressosanteriores = [];
+  List<String> get listingressosanteriores => _listingressosanteriores;
+  set listingressosanteriores(List<String> value) {
+    _listingressosanteriores = value;
+  }
+
+  void addToListingressosanteriores(String value) {
+    listingressosanteriores.add(value);
+  }
+
+  void removeFromListingressosanteriores(String value) {
+    listingressosanteriores.remove(value);
+  }
+
+  void removeAtIndexFromListingressosanteriores(int index) {
+    listingressosanteriores.removeAt(index);
+  }
+
+  void updateListingressosanterioresAtIndex(
+    int index,
+    String Function(String) updateFn,
+  ) {
+    listingressosanteriores[index] = updateFn(_listingressosanteriores[index]);
+  }
+
+  void insertAtIndexInListingressosanteriores(int index, String value) {
+    listingressosanteriores.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {
